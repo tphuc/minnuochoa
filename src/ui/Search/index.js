@@ -2,6 +2,9 @@ import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMedia
 import { Navigation, ShoppingBag } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import Nav from '../../components/Nav';
+import ProductCard from '../../components/ProductCard';
+
 import useBrands from '../../dynamic/brand';
 
 import useCategories from '../../dynamic/category';
@@ -42,16 +45,7 @@ export default function Search(props) {
 
 
     return <Page render='effect' width='100%' >
-        <Page.Header style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }} >
-
-            <Image disableSkeleton={true} height='60px' width='auto' style={{ cursor: "pointer" }} onClick={() => history.push('/')} src="https://cdn.dribbble.com/users/3812993/screenshots/9843080/media/74c2871ed47c78d31d47b4cc949a8914.png?compress=1&resize=400x300" />
-            <Spacer y={0.2} />
-            {!isMobile && categories?.map((item, id) => <Link block href={`/search?category=${item.name}&brand=${brand}&sort=${sort}`} style={{ color: palette.accents_8, marginLeft: "10px" }} key={id}>{item.name}</Link>)}
-            <div style={{ flex: 1 }} />
-            <Button iconRight={<ShoppingBag />} auto scale={2 / 3} />
-            <Spacer y={0.2} />
-
-        </Page.Header>
+        <Nav/>
         <Page.Content>
             {isMobile && <>
                 <Select width='100%' placeholder="Danh mục" onChange={(val) => {
@@ -80,32 +74,37 @@ export default function Search(props) {
                         //     e.preventDefault()
                         //     history.push(`/search/${item.path}`)
                         // }} 
-                        style={{ color: category == item.name ? palette.accents_7 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
+                        style={{ color: category == item.name ? palette.accents_8 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
 
                     <Spacer h={3} />
                     <Text h3>Hãng</Text>
                     {brands?.map((item, id) => <Link
                         href={`/search?category=${category}&brand=${item.name}&sort=${sort}`}
-                        style={{ color: brand == item.name ? palette.accents_7 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
+                        style={{ color: brand == item.name ? palette.accents_8 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
                 </Grid>
-                <Grid xs={0} md={16}>
+                <Grid xs={24} md={16}>
+
+                    <Grid.Container gap={2} >
+                        <Grid xs={24} sm={12} md={6}  ><ProductCard /></Grid>
+                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
+                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
+                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
+                        <Grid xs={24} sm={12} md={6}  ><ProductCard /></Grid>
+                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
+                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
+
+                    </Grid.Container>
 
                 </Grid>
                 <Grid xs={0} md={4} direction='column'>
                     <Text h3>Sắp xếp</Text>
                     {sorts?.map((item, id) => <Link
                         href={`/search?category=${category}&brand=${brand}&sort=${item.value}`}
-                        style={{ color: sort == item.value ? palette.accents_7 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
+                        style={{ color: sort == item.value ? palette.accents_8 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
                 </Grid>
 
             </Grid.Container>
         </Page.Content>
-
-        {/* </Page.Header> */}
-
-
-
-
 
 
     </Page>

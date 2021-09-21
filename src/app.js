@@ -8,6 +8,7 @@ import {
   useParams
 } from "react-router-dom";
 import Home from './ui/Home';
+import Product from './ui/Product';
 import Search from './ui/Search';
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
       <Switch >
       <Route exact path='/' component={Home} />
       <Route path='/search' component={Search} />
+      <Route path='/product' component={Product} />
       </Switch>
       
     </Router>

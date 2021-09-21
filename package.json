@@ -8,7 +8,7 @@
   },
   "prettier": "@geist-ui/prettier-config",
   "dependencies": {
-    "@geist-ui/react": "^2.2.0-rc.7",
+    "@geist-ui/react": "^2.2.0",
     "@geist-ui/react-icons": "^1.0.1",
     "add": "^2.0.6",
     "firebase": "^9.0.2",
