@@ -7,6 +7,7 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+import Checkout from './ui/Checkout';
 import Home from './ui/Home';
 import Product from './ui/Product';
 import Search from './ui/Search';
@@ -18,6 +19,7 @@ const App = () => {
       <Route exact path='/' component={Home} />
       <Route path='/search' component={Search} />
       <Route path='/product' component={Product} />
+      <Route path='/checkout' component={Checkout} />
       </Switch>
       
     </Router>

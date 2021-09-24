@@ -2,15 +2,17 @@ import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMedia
 import { Navigation, ShoppingBag } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import Nav from '../../components/Nav';
-import ProductCard from '../../components/ProductCard';
+import Nav from '../Nav';
+import ProductCard from '../Product/ProductCard';
 
 import useBrands from '../../dynamic/brand';
 
 import useCategories from '../../dynamic/category';
+import useProducts from '../../dynamic/products';
 import useSorts from '../../dynamic/sort';
 import { getSlug, useQuery } from '../../lib';
 import { filterQuery, useSearchMeta, getBrandPath } from '../../lib/use-search-meta';
+import Footer from '../Footer';
 
 
 
@@ -23,6 +25,7 @@ export default function Search(props) {
 
     const history = useHistory();
     const location = useLocation();
+    const { data: products } = useProducts();
 
     const { data: categories, isError: isCategoriesError, isLoading: isCategoriesLoading } = useCategories();
     const { data: brands, isError: isBrandsError, isLoading: isBrandsLoading } = useBrands();
@@ -45,7 +48,7 @@ export default function Search(props) {
 
 
     return <Page render='effect' width='100%' >
-        <Nav/>
+        <Nav />
         <Page.Content>
             {isMobile && <>
                 <Select width='100%' placeholder="Danh mục" onChange={(val) => {
@@ -85,13 +88,11 @@ export default function Search(props) {
                 <Grid xs={24} md={16}>
 
                     <Grid.Container gap={2} >
-                        <Grid xs={24} sm={12} md={6}  ><ProductCard /></Grid>
-                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
-                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
-                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
-                        <Grid xs={24} sm={12} md={6}  ><ProductCard /></Grid>
-                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
-                        <Grid xs={24} sm={12} md={6}><ProductCard /></Grid>
+                        {
+                            products?.map((item, id) => <Grid xs={24} sm={12} md={6} ><ProductCard data={item} /></Grid>)
+                        }
+
+
 
                     </Grid.Container>
 
@@ -106,6 +107,7 @@ export default function Search(props) {
             </Grid.Container>
         </Page.Content>
 
+        <Footer />
 
     </Page>
 }

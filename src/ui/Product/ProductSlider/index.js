@@ -19,7 +19,9 @@ const data = [
 
 
 
-export default function ProductSlider(props) {
+export default function ProductSlider({
+    images,
+}) {
 
     const { palette } = useTheme();
 
@@ -44,18 +46,16 @@ export default function ProductSlider(props) {
     return <div style={{ position: "relative" }}>
         <div ref={sliderContainerRef} onScroll={(e) => handleScroll(e)} class="carousel" >
             {
-                data.map((item, id) => <div key={id} className='carousel-item' id="carousel-1">
-
-                    <Image width="100%" height="560px" src={item.img} />
-
+                images?.map((item, id) => <div key={id} className='carousel-item' id="carousel-1">
+                    <Image width="100%" height="560px" src={item.url} />
                 </div>)
             }
         </div>
         <Divider />
         <div style={{ display: "flex", position: "relative", maxWidth: '100%', flexDirection: "row" }}>
             {
-                data.map((item, id) => <div onClick={() => scrollToImage(id)} style={{ cursor: "pointer", border: activeImg == id ? `1px solid ${palette.accents_8}` : '1px solid transparent', borderRadius:4 }} key={id} id="carousel-1">
-                    <Image style={{ objectPosition: 'center center', objectFit: "scale-down" }} width="120px" height="120px" src={item.img} />
+                images?.map((item, id) => <div onClick={() => scrollToImage(id)} style={{ cursor: "pointer", border: activeImg == id ? `1px solid ${palette.accents_8}` : '1px solid transparent', }} key={id} id="carousel-1">
+                    <Image style={{ objectPosition: 'center center', objectFit: "scale-down" }} width="120px" height="120px" src={item.url} />
                 </div>)
             }
         </div>

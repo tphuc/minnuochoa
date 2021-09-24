@@ -31,7 +31,7 @@ const fetcher = (...args) => {
 
 export default function useBrands() {
     const { data, error } = useSWR(`/brand`, fetcher)
-    console.log(data)
+
     return {
         data: data,
         isLoading: !error && !data,
