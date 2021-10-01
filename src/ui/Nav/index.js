@@ -68,7 +68,7 @@ export default function Nav() {
         <Page.Header style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }} >
             <Image disableSkeleton={true} height='60px' width='auto' style={{ cursor: "pointer" }} onClick={() => history.push('/')} src="https://cdn.dribbble.com/users/3812993/screenshots/9843080/media/74c2871ed47c78d31d47b4cc949a8914.png?compress=1&resize=400x300" />
             <Spacer y={0.2} />
-            {!isMobile && categories?.map((item, id) => <Link block href={`/search?category=${item.name}`} style={{ color: palette.accents_8, marginLeft: "10px" }} key={id}>{item.name}</Link>)}
+            {!isMobile && categories?.map((item, id) => <Link block href={`/search?category=${item.name}`} style={{ color: palette.accents_8,  marginLeft: "10px" }} key={id}>{item.name}</Link>)}
             <div style={{ flex: 1 }} />
             <Badge.Anchor>
                 <Badge scale={0.5} >{cart?.length}</Badge>

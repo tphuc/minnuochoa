@@ -1,5 +1,5 @@
 import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMediaQuery, Image, Link, Select, useTheme, Drawer, Badge, Display, Divider, Description } from '@geist-ui/react';
-import { ExternalLink, MapPin, Navigation, Phone, ShoppingBag, X } from '@geist-ui/react-icons';
+import { ExternalLink, Facebook, Instagram, MapPin, Navigation, Phone, ShoppingBag, X } from '@geist-ui/react-icons';
 
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -34,31 +34,38 @@ export default function Footer() {
 
 
 
-    return <Page.Footer>
+    return <div>
         <Divider />
         <Grid.Container gap={2} mb={2} >
-            <Grid xs={24}  md={2}  >
+            <Grid xs={24} md={2}  >
                 <div>
-                    <Image disableSkeleton={true} height='60px' width='auto'   src={LogoImg}></Image>
+                    <Image disableSkeleton={true} height='60px' width='auto' src={LogoImg}></Image>
                 </div>
             </Grid>
             <Grid xs={24} ml={1} md={8} direction='column' >
                 <Link><Text my={0}> Điều khoản sử dụng</Text></Link>
                 <Link><Text my={0}> Điều khoản mua & trả hàng </Text></Link>
             </Grid>
-            <Grid  xs={24} ml={1} md={8} direction='column'>
-                <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-                    <Phone/> <Text ml={2} span>088.8880.777 </Text>
-                </div>
-                <Spacer y={0.1}/>
-                <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-                    <MapPin/> <Text ml={2} span>Thong Nhat, Ngo Quyen, Binh Thuan </Text>
-                </div>
+            <Grid xs={24} ml={1} md={8} direction='column'>
+                <Text my={0}>Hotline: 0777.039.286 </Text>
+                <Text my={0}>CN1: 84 Trần Kế Xương, P.7, Q.Phú Nhuận, TP.HCM </Text>
+                <Text my={0}>CN2: 256 Ngô Quyền, P.Tân An, TX.Lagi, Bình Thuận </Text>
+                <Text my={0}>CN3: 98 Thái Hà, Đống Đa, Hà Nội </Text>
             </Grid>
-            <Grid ml={1} xs={24}  md={2}  >
-                <Text>© 2020-2022 Minnuochoa</Text>
+            <Grid ml={1} xs={24} md={3}  >
+                <div>
+                <Text  style={{whiteSpace:'nowrap'}}  my={0}>© 2020 Minnuochoa</Text>
+        
+                <Text my={0.5}>THEO DÕI CHÚNG TÔI</Text>
+                <a  href='https://instagram.com/minnuochoa'>
+                    <Instagram size={36}/>
+                </a>
+                <a  href='https://facebook.com/minnuochoaa'>
+                    <Facebook size={36}/>
+                </a>
+                </div>
             </Grid>
 
         </Grid.Container>
-    </Page.Footer>
+    </div>
 }

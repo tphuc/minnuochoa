@@ -3,6 +3,7 @@ import { Navigation, ShoppingBag, ShoppingCart } from '@geist-ui/react-icons';
 import Cookies from 'js-cookie';
 import React from 'react';
 import useCart from '../../../dynamic/cart';
+import { formatNumber } from '../../../lib';
 
 
 
@@ -45,7 +46,7 @@ export default function ProductSidebar({
         }
 
         <Spacer h={0.5} />
-        <Text type='success' >{data?.variants[activeVariantIndex]?.price} đ</Text>
+        <Text type='success' >{formatNumber(data?.variants[activeVariantIndex]?.price)}</Text>
         <Divider/>
         <Description title={<Text marginBottom={0} h5>Xuất xứ</Text>} content={<Text >{data?.origin}</Text>} />
         <Description title={<Text marginBottom={0} h5>Giới tính</Text>} content={<Text >{data?.gender}</Text>} />

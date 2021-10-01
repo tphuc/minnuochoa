@@ -49,23 +49,27 @@ export default function Search(props) {
 
     return <Page render='effect' width='100%' >
         <Nav />
-        <Page.Content>
+        <Page.Content style={{minHeight:"80vh"}}>
             {isMobile && <>
+                <Text b h4>Tìm nước hoa bạn muốn</Text>
                 <Select width='100%' placeholder="Danh mục" onChange={(val) => {
                     history.replace(`/search?category=${val}&brand=${brand}&sort=${sort}`)
                 }} >
                     {categories?.map((item, id) => <Select.Option value={item.name} key={id}>{item.name}</Select.Option>)}
                 </Select>
+                <Spacer h={0.2}/>
                 <Select width='100%' placeholder="Hãng" onChange={(val) => {
                     history.replace(`/search?category=${category}&brand=${val}&sort=${sort}`)
                 }} >
                     {brands?.map((item, id) => <Select.Option value={item.name} key={id}>{item.name}</Select.Option>)}
                 </Select>
+                <Spacer h={0.2}/>
                 <Select width='100%' placeholder="Sắp xếp" onChange={(val) => {
                     history.replace(`/search?category=${category}&brand=${brand}&sort=${val}`)
                 }} >
                     {sorts?.map((item, id) => <Select.Option value={item.value} key={id}>{item.name}</Select.Option>)}
                 </Select>
+                <Spacer h={2}/>
             </>}
 
             <Grid.Container gap={2} justify="center">
@@ -89,7 +93,7 @@ export default function Search(props) {
 
                     <Grid.Container gap={2} >
                         {
-                            products?.map((item, id) => <Grid xs={24} sm={12} md={6} ><ProductCard data={item} /></Grid>)
+                            products?.map((item, id) => <Grid xs={24} sm={12} md={5} ><ProductCard data={item} /></Grid>)
                         }
 
 
