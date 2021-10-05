@@ -2,7 +2,7 @@ import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMedia
 import { Award, ChevronRight, Gift, Navigation, Package, ShoppingBag, ShoppingCart } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import useCategories from '../../dynamic/category';
+import useCategories from '../../swr/category';
 import Footer from '../Footer';
 import Nav from '../Nav';
 import Marquee from "react-fast-marquee";
@@ -18,6 +18,7 @@ export default function Home(props) {
     const { palette } = useTheme()
 
     const { data: categories, isError, isLoading } = useCategories();
+
     const isMobile = useMediaQuery('mobile')
 
     return <Page render='effect' width='100%' >
@@ -75,23 +76,12 @@ export default function Home(props) {
             </div>
             <Divider/> */}
             <Marquee speed={80} >
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Image height='320px' src='https://www.sephora.com/productimages/sku/s909093-main-zoom.jpg' />
-                    <Button style={{ position: "absolute", bottom: 10, }} >NƯỚC HOA CHIẾT NAM</Button>
-                </div>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Image height='320px' src='https://staticimg.titan.co.in/Skinn/Catalog/FW03PFC_2.jpg' />
-                    <Button style={{ position: "absolute", bottom: 10 }} >NƯỚC HOA CHIẾT NỮ</Button>
-                </div>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Image height='320px' src='https://i1.perfumesclub.com/grande/123206.jpg' />
-                    <Button style={{ position: "absolute", bottom: 10 }}>LĂN KHỬ MÙI</Button>
-                </div>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Image height='320px' src='https://m.media-amazon.com/images/I/71N+33GFefL._SL1500_.jpg' />
-                    <Button style={{ position: "absolute", bottom: 10 }}>SON MÔI</Button>
-                </div>
-
+                {categories?.map(item =>  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <Image height='320px' src={item.images[0]} />
+                    <Button style={{ position: "absolute", bottom: 10, }} >{item.label}</Button>
+                </div>)}
+               
+               
 
             </Marquee>
             <Divider type='dark'/>

@@ -3,7 +3,7 @@ import { Minus, Navigation, Plus, ShoppingBag, X } from '@geist-ui/react-icons';
 import Cookies from 'js-cookie';
 
 import React from 'react';
-import useCart from '../../../dynamic/cart';
+import useCart from '../../../swr/cart';
 import { formatNumber } from '../../../lib';
 
 

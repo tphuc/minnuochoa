@@ -47,7 +47,7 @@ export default function ProductSlider({
         <div ref={sliderContainerRef} onScroll={(e) => handleScroll(e)} class="carousel" >
             {
                 images?.map((item, id) => <div key={id} className='carousel-item' id="carousel-1">
-                    <Image width="100%" height="560px" src={item.url} />
+                    <Image width="100%" height="560px" src={item.name} />
                 </div>)
             }
         </div>
@@ -55,7 +55,7 @@ export default function ProductSlider({
         <div style={{ display: "flex", position: "relative", maxWidth: '100%', flexDirection: "row" }}>
             {
                 images?.map((item, id) => <div onClick={() => scrollToImage(id)} style={{ cursor: "pointer", border: activeImg == id ? `1px solid ${palette.accents_8}` : '1px solid transparent', }} key={id} id="carousel-1">
-                    <Image style={{ objectPosition: 'center center', objectFit: "scale-down" }} width="120px" height="120px" src={item.url} />
+                    <Image style={{ objectPosition: 'center center', objectFit: "scale-down" }} width="120px" height="120px" src={item.name} />
                 </div>)
             }
         </div>

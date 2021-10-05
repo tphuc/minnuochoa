@@ -6,20 +6,21 @@ import useSWR from 'swr'
 const fetcher = (...args) => {
     return Promise.resolve([
         {
-            name: "Mới nhất",
-            value: 'newest',
+            label: "Mới nhất",
+            value: 'timestamp',
             id: '1',
         },
         {
-            name: "Giá cao xuống thấp",
+            label: "Giá cao xuống thấp",
             value: 'desc',
             id: '2',
         },
         {
-            name: "Giá thấp xuống cao",
+            label: "Giá thấp xuống cao",
             value: 'asc',
             id: '3',
         },
+        
     ])
 }
 

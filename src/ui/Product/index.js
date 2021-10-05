@@ -5,43 +5,33 @@ import { useHistory, useLocation } from 'react-router-dom';
 import Nav from '../Nav';
 import ProductCard from './ProductCard';
 
-import useBrands from '../../dynamic/brand';
+import useBrands from '../../swr/brand';
 
-import useCategories from '../../dynamic/category';
-import useProductItemDetail from '../../dynamic/product-item';
-import useSorts from '../../dynamic/sort';
+import useCategories from '../../swr/category';
+import useProductItemDetail from '../../swr/product-item';
+import useSorts from '../../swr/sort';
 import { getSlug, useQuery } from '../../lib';
 import { filterQuery, useSearchMeta, getBrandPath } from '../../lib/use-search-meta';
 import ProductSidebar from './ProductSidebar';
 import ProductSlider from './ProductSlider';
+import { useParams } from 'react-router-dom';
 
 
 
 
+export default function Product({
 
-
-
-export default function Product(props) {
+}) {
     const { palette } = useTheme()
+    const query = useQuery()
 
     const history = useHistory();
+    let {id} = useParams()
+    console.log(id)
 
-    const { data: data } = useProductItemDetail();
+    const { data: product } = useProductItemDetail(id);
+
     const isMobile = useMediaQuery('mobile');
-
-
-
-    const isMatchCategorySlug = React.useCallback((str) => {
-        return location.pathname.includes(str)
-    }, [location.pathname])
-
-
-
-
-    const sort = useQuery().get('sort')
-    const category = useQuery().get('category')
-    const brand = useQuery().get('brand')
-
 
 
     return <Page render='effect' width='100%' >
@@ -49,10 +39,10 @@ export default function Product(props) {
         <Page.Content>
             <Grid.Container gap={2} >
                 <Grid xs={24}  md={14} >
-                    <ProductSlider images={data?.images} />
+                    <ProductSlider images={product?.images || []} />
                 </Grid>
                 <Grid xs={24}  md={8}>
-                    <ProductSidebar data={data}/>
+                    <ProductSidebar data={product}/>
                 </Grid>
 
             </Grid.Container>

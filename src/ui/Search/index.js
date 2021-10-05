@@ -5,14 +5,16 @@ import { useHistory, useLocation } from 'react-router-dom';
 import Nav from '../Nav';
 import ProductCard from '../Product/ProductCard';
 
-import useBrands from '../../dynamic/brand';
+import useBrands from '../../swr/brand';
 
-import useCategories from '../../dynamic/category';
-import useProducts from '../../dynamic/products';
-import useSorts from '../../dynamic/sort';
-import { getSlug, useQuery } from '../../lib';
+import useCategories from '../../swr/category';
+import useProducts from '../../swr/products';
+import useSorts from '../../swr/sort';
+import { findIdByLabel, getSlug, useQuery } from '../../lib';
 import { filterQuery, useSearchMeta, getBrandPath } from '../../lib/use-search-meta';
 import Footer from '../Footer';
+import { useGlobalState } from '../../swr';
+import StyleLink from '../../components/StyleLink';
 
 
 
@@ -22,16 +24,20 @@ import Footer from '../Footer';
 
 export default function Search(props) {
     const { palette } = useTheme()
-
+    const sort = useQuery().get('sort')
+    const category = useQuery().get('category')
+    const brand = useQuery().get('brand')
     const history = useHistory();
     const location = useLocation();
-    const { data: products } = useProducts();
+    const { data: categories, isLoading: isCategoriesLoading } = useCategories();
+    const { data: brands, isLoading: isBrandsLoading } = useBrands();
+    const { data: products, fetchFilter, mutate: mutateProducts } = useProducts([categories, brands]);
+    // const { categories, brands } = useGlobalState()
 
-    const { data: categories, isError: isCategoriesError, isLoading: isCategoriesLoading } = useCategories();
-    const { data: brands, isError: isBrandsError, isLoading: isBrandsLoading } = useBrands();
+
+
     const { data: sorts } = useSorts();
     const isMobile = useMediaQuery('mobile');
-
 
 
     const isMatchCategorySlug = React.useCallback((str) => {
@@ -40,54 +46,95 @@ export default function Search(props) {
 
 
 
+    React.useEffect(() => {
 
-    const sort = useQuery().get('sort')
-    const category = useQuery().get('category')
-    const brand = useQuery().get('brand')
-    console.log(category, brand, sort)
+        fetchFilter({
+            categories: category ? [`categories.${findIdByLabel(categories || [], category)}.label`, '==', category] : null,
+            brands: brand ? [`brands.${findIdByLabel(brands || [], brand)}.label`, '==', brand] : null,
+            sort: sort && [ sort === 'timestamp' ? 'timestamp' : 'price' , sort === 'timestamp' ? 'desc' : sort]
+
+        }).then(res => {
+            console.log(res)
+            mutateProducts(res, false)
+        })
+
+
+
+
+    }, [brand, category, sort])
+
 
 
     return <Page render='effect' width='100%' >
         <Nav />
-        <Page.Content style={{minHeight:"80vh"}}>
+        <Page.Content style={{ minHeight: "80vh" }}>
             {isMobile && <>
                 <Text b h4>Tìm nước hoa bạn muốn</Text>
                 <Select width='100%' placeholder="Danh mục" onChange={(val) => {
-                    history.replace(`/search?category=${val}&brand=${brand}&sort=${sort}`)
+                    history.push({
+                        pathname: "/search",
+                        search: '?' + new URLSearchParams({ category: val, brand, sort })
+                    })
                 }} >
-                    {categories?.map((item, id) => <Select.Option value={item.name} key={id}>{item.name}</Select.Option>)}
+                    {categories?.map((item, id) => <Select.Option value={item.label} key={id}>{item.label}</Select.Option>)}
                 </Select>
-                <Spacer h={0.2}/>
+                <Spacer h={0.2} />
                 <Select width='100%' placeholder="Hãng" onChange={(val) => {
-                    history.replace(`/search?category=${category}&brand=${val}&sort=${sort}`)
+                    history.push({
+                        pathname: "/search",
+                        search: '?' + new URLSearchParams({ category, brand: val, sort })
+                    })
                 }} >
-                    {brands?.map((item, id) => <Select.Option value={item.name} key={id}>{item.name}</Select.Option>)}
+                    {brands?.map((item, id) => <Select.Option value={item.label} key={id}>{item.label}</Select.Option>)}
                 </Select>
-                <Spacer h={0.2}/>
+                <Spacer h={0.2} />
                 <Select width='100%' placeholder="Sắp xếp" onChange={(val) => {
-                    history.replace(`/search?category=${category}&brand=${brand}&sort=${val}`)
+                    history.push({
+                        pathname: "/search",
+                        search: '?' + new URLSearchParams({ category, brand, sort: val })
+                    })
                 }} >
-                    {sorts?.map((item, id) => <Select.Option value={item.value} key={id}>{item.name}</Select.Option>)}
+                    {sorts?.map((item, id) => <Select.Option value={item.value} key={id}>{item.label}</Select.Option>)}
                 </Select>
-                <Spacer h={2}/>
+                <Spacer h={2} />
             </>}
 
             <Grid.Container gap={2} justify="center">
                 <Grid xs={0} md={4} pl='2%' direction='column'>
                     <Text h3>Danh mục</Text>
-                    {categories?.map((item, id) => <Link
-                        href={`/search?category=${item.name}&brand=${brand}&sort=${sort}`}
-                        //  onClick={(e) => {
-                        //     e.preventDefault()
-                        //     history.push(`/search/${item.path}`)
-                        // }} 
-                        style={{ color: category == item.name ? palette.accents_8 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
+                    <StyleLink
+                        href={{
+                            pathname: "/search",
+                            search: '?' + new URLSearchParams({ category: '', brand, sort })
+                        }}
+                    >
+                        Tất cả
+                    </StyleLink>
+                    {categories?.map((item, id) => <StyleLink
+                        href={{
+                            pathname: "/search",
+                            search: '?' + new URLSearchParams({ category: item.label, brand, sort })
+                        }}
+                        isActive={category == item.label}
+                        key={id}>{item.label}</StyleLink>)}
 
                     <Spacer h={3} />
                     <Text h3>Hãng</Text>
-                    {brands?.map((item, id) => <Link
-                        href={`/search?category=${category}&brand=${item.name}&sort=${sort}`}
-                        style={{ color: brand == item.name ? palette.accents_8 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
+                    <StyleLink
+                        href={{
+                            pathname: "/search",
+                            search: '?' + new URLSearchParams({ category, brand:'', sort })
+                        }}
+                    >
+                        Tất cả
+                    </StyleLink>
+                  
+                    {brands?.map((item, id) => <StyleLink
+                        href={{
+                            pathname: "/search",
+                            search: '?' + new URLSearchParams({ category, brand: item.label, sort })
+                        }}
+                        isActive={brand == item.label} key={id}>{item.label}</StyleLink>)}
                 </Grid>
                 <Grid xs={24} md={16}>
 
@@ -95,17 +142,17 @@ export default function Search(props) {
                         {
                             products?.map((item, id) => <Grid xs={24} sm={12} md={5} ><ProductCard data={item} /></Grid>)
                         }
-
-
-
                     </Grid.Container>
 
                 </Grid>
                 <Grid xs={0} md={4} direction='column'>
                     <Text h3>Sắp xếp</Text>
-                    {sorts?.map((item, id) => <Link
-                        href={`/search?category=${category}&brand=${brand}&sort=${item.value}`}
-                        style={{ color: sort == item.value ? palette.accents_8 : palette.accents_3, }} color underline key={id}>{item.name}</Link>)}
+                    {sorts?.map((item, id) => <StyleLink
+                        href={{
+                            pathname: "/search",
+                            search: '?' + new URLSearchParams({ category, brand, sort: item.value })
+                        }}
+                        color underline key={id}>{item.label}</StyleLink>)}
                 </Grid>
 
             </Grid.Container>

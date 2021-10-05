@@ -2,7 +2,7 @@ import { Page, Spinner, Tabs, Grid, Card, Text, Button, Radio, Spacer, Input, us
 import { CheckCircle, Navigation, ShoppingBag } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import useCart from '../../dynamic/cart';
+import useCart from '../../swr/cart';
 import { formatNumber } from '../../lib';
 import Footer from '../Footer';
 import Nav from '../Nav';

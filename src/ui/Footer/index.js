@@ -3,8 +3,8 @@ import { ExternalLink, Facebook, Instagram, MapPin, Navigation, Phone, ShoppingB
 
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useCart from '../../dynamic/cart';
-import useCategories from '../../dynamic/category';
+import useCart from '../../swr/cart';
+import useCategories from '../../swr/category';
 import CartItem from '../Cart/CartItem';
 import React from 'react';
 import { formatNumber } from '../../lib';
