@@ -77,7 +77,7 @@ export default function Home(props) {
             <Divider/> */}
             <Marquee speed={80} >
                 {categories?.map(item =>  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Image height='320px' src={item.images[0]} />
+                    <Image height='320px' src={item.images[0].name} />
                     <Button style={{ position: "absolute", bottom: 10, }} >{item.label}</Button>
                 </div>)}
                
