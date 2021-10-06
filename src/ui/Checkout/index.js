@@ -1,12 +1,14 @@
-import { Page, Spinner, Tabs, Grid, Card, Text, Button, Radio, Spacer, Input, useInput, useMediaQuery, Image, Link, Select, useTheme, Divider, Description } from '@geist-ui/react';
+import { Page, Spinner, Tabs, Grid, Card, Text, Button, Radio, Spacer, Input, useInput, useMediaQuery, Image, Link, Select, useTheme, Divider, Description, useToasts } from '@geist-ui/react';
 import { CheckCircle, Navigation, ShoppingBag } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import useCart from '../../swr/cart';
-import { formatNumber } from '../../lib';
+import { formatNumber, totalprice } from '../../lib';
 import Footer from '../Footer';
 import Nav from '../Nav';
 import CheckoutItem from './CheckoutItem';
+import { addOrder } from '../../swr/checkout';
+import Cookies from 'js-cookie';
 
 
 
@@ -19,30 +21,80 @@ export default function Checkout(props) {
 
     const history = useHistory();
     const { data: cart, mutate: cartMutate } = useCart();
+    const shippingCost = 30000;
 
-    const { state: name, setState: setName, reset, bindings: nameBindings } = useInput('')
+    const { state: name, setState: setName,  bindings: nameBindings } = useInput('')
+    const { state: phone, setState: setPhone,  bindings: phoneBindings } = useInput('')
+    const { state: address, setState: setAddress,  bindings: addressBindings } = useInput('')
+
+
     const [paymentMethod, setPaymentMethod] = React.useState('cash')
 
     const isMobile = useMediaQuery('mobile');
 
 
-
-    const totalprice = React.useCallback(() => {
-        if (!cart) {
-            return 0;
-        }
-        var total = 0;
-        cart?.map(item => { total += item?.variantSelected?.price * item.amount })
-
-        return total
-    }, [cart])
+    const [toasts, setToast] = useToasts()
 
     const isMatchCategorySlug = React.useCallback((str) => {
         return location.pathname.includes(str)
     }, [location.pathname])
 
 
+    const confirm = async () => {
+        console.log({
+            name,
+            phone,
+            address,
+            paymentMethod,
+            cart
+        })
 
+        if(!cart.length){
+            setToast({
+                text:"Giỏ hàng trống",
+                type:"warning"
+            })
+            return
+        }
+        if(!name || !phone || !address || !paymentMethod){
+            setToast({
+                text:"Vui lòng điền đầy đủ thông tin",
+                type:"warning"
+            })
+            return
+        }
+        try{ 
+            await addOrder({
+                name,
+                phone,
+                address,
+                paymentMethod,
+                cart,
+                total: totalprice(cart) + shippingCost
+            })
+            setToast({
+                text:"Đặt hàng thành công",
+                type:"success"
+            })
+            Cookies.set('cart', '')
+            cartMutate([])
+            history.push('/search')
+           
+        }
+        catch(e){
+            console.log(e)
+            setToast({
+                text:"Đặt bị lỗi xin thử lại",
+                type:"error"
+            })
+
+
+        }
+      
+
+
+
+    }
 
     return <Page render='effect' width='100%' >
         <Nav />
@@ -55,9 +107,9 @@ export default function Checkout(props) {
                     <Divider />
                     <Input placeholder='Họ và tên' width='100%' {...nameBindings} />
                     <Spacer h={0.5} />
-                    <Input placeholder='Số điện thoại' width='100%' />
+                    <Input placeholder='Số điện thoại' width='100%' {...phoneBindings} />
                     <Spacer h={0.5} />
-                    <Input placeholder='Địa chỉ' width='100%' />
+                    <Input placeholder='Địa chỉ' width='100%' {...addressBindings} />
                     <Spacer h={1} />
                     <Radio.Group title='Phương thức thanh toán' value={paymentMethod} onChange={(val) => setPaymentMethod(val)}>
                         <Radio value="cash"><Text my={0}>Thanh toán khi nhận hàng</Text></Radio>
@@ -80,10 +132,10 @@ export default function Checkout(props) {
                         </Card>
                     }
                     <Spacer h={2} />
-                    <Button scale={2} iconRight={<CheckCircle />} type='secondary-light'>Xác nhận</Button>
+                    <Button onClick={confirm} scale={2} iconRight={<CheckCircle />} type='secondary-light'>Xác nhận</Button>
                 </Grid>
                 <Grid mx={1} xs={24} md={10} direction='column'>
-                    <Text my={0} h4>Tổng cộng: <Text span small my={0}>{formatNumber(totalprice() + 30000)}</Text></Text>
+                    <Text my={0} h4>Tổng cộng: <Text span small my={0}>{formatNumber(totalprice(cart) + 30000)}</Text></Text>
                     <Divider />
                     {cart?.map(item => <CheckoutItem data={item} />)}
 

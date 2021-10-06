@@ -22,8 +22,22 @@ function findIdByLabel(array, label){
 const parseLabelPrice = (string) => {
     if(!string) return {}
     const [label, price] = string.split('-')
-    return { label, price}
+    return { label, price: parseFloat(price)}
 }
+
+
+const totalprice = (cart) => {
+    if (!cart) {
+        return 0;
+    }
+    var total = 0;
+    cart?.map(item => { total += parseLabelPrice(item?.variantSelected?.label)?.price * item.amount })
+
+    return total
+}
+
+
+
 
 
 export {
@@ -31,5 +45,6 @@ export {
     useQuery,
     formatNumber,
     parseLabelPrice,
-    findIdByLabel
+    findIdByLabel,
+    totalprice
 }

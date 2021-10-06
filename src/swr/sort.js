@@ -11,12 +11,12 @@ const fetcher = (...args) => {
             id: '1',
         },
         {
-            label: "Giá cao xuống thấp",
+            label: "Giá giảm dần",
             value: 'desc',
             id: '2',
         },
         {
-            label: "Giá thấp xuống cao",
+            label: "Giá tăng dần",
             value: 'asc',
             id: '3',
         },

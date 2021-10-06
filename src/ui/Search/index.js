@@ -18,15 +18,29 @@ import StyleLink from '../../components/StyleLink';
 
 
 
+const getSortFunc = (a, b, sort) => {
+    if(sort == 'asc'){
+        return a.price > b.price
+    }
+    if(sort == 'desc'){
+        return a.price < b.price
+    }
+    else{
+        return new Date(a.timestamp).getTime() < new Date(b.timestamp).getTime()
+    }
+}
 
 
 
 
 export default function Search(props) {
     const { palette } = useTheme()
-    const sort = useQuery().get('sort')
-    const category = useQuery().get('category')
-    const brand = useQuery().get('brand')
+    const _sort = useQuery().get('sort')
+    const sort = _sort === 'null' ? null : _sort
+    const _category = useQuery().get('category')
+    const category = _category === 'null' ? null : _category
+    const _brand = useQuery().get('brand')
+    const brand = _brand === 'null' ? null : _brand
     const history = useHistory();
     const location = useLocation();
     const { data: categories, isLoading: isCategoriesLoading } = useCategories();
@@ -47,14 +61,15 @@ export default function Search(props) {
 
 
     React.useEffect(() => {
+        let categoryId = findIdByLabel(categories || [], category)
+        let brandId = findIdByLabel(brands || [], brand)
 
         fetchFilter({
-            categories: category ? [`categories.${findIdByLabel(categories || [], category)}.label`, '==', category] : null,
-            brands: brand ? [`brands.${findIdByLabel(brands || [], brand)}.label`, '==', brand] : null,
-            sort: sort && [ sort === 'timestamp' ? 'timestamp' : 'price' , sort === 'timestamp' ? 'desc' : sort]
+            categories: category ? [`categories.${categoryId}.id`, '==', categoryId] : null,
+            brands: brand ? [`brands.${brandId}.id`, '==', brandId] : null,
+            sort: sort && [ 'price', sort !== 'timestamp' ? sort : 'desc']
 
         }).then(res => {
-            console.log(res)
             mutateProducts(res, false)
         })
 
@@ -140,7 +155,7 @@ export default function Search(props) {
 
                     <Grid.Container gap={2} >
                         {
-                            products?.map((item, id) => <Grid xs={24} sm={12} md={5} ><ProductCard data={item} /></Grid>)
+                            products?.sort((a,b) => getSortFunc(a,b,sort))?.map((item, id) => <Grid xs={24} sm={12} md={5} ><ProductCard data={item} /></Grid>)
                         }
                     </Grid.Container>
 
@@ -152,7 +167,8 @@ export default function Search(props) {
                             pathname: "/search",
                             search: '?' + new URLSearchParams({ category, brand, sort: item.value })
                         }}
-                        color underline key={id}>{item.label}</StyleLink>)}
+                        isActive={sort == item.value}
+                        underline key={id}>{item.label}</StyleLink>)}
                 </Grid>
 
             </Grid.Container>

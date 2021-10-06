@@ -31,6 +31,7 @@ export default function ProductSidebar({
     const [activeVariantIndex, setActiveVariantIndex] = React.useState(0);
 
     const { mutate: cartMutate } = useCart()
+
     const addToCart = () => {
         let lineItems = JSON.parse(Cookies.get('cart') || '[]');
         Cookies.set('cart', JSON.stringify([...lineItems, {...data, variantSelected: data.variants[activeVariantIndex], amount: 1 }]))
@@ -54,7 +55,7 @@ export default function ProductSidebar({
         <Spacer h={1} />
         <Divider/>
         <Button 
-        // onClick={addToCart} 
+        onClick={addToCart} 
         scale={2} type='secondary-light' iconRight={<ShoppingBag />} width='100%'>Thêm vào giỏ</Button>
         <Collapse.Group>
             <Collapse title={<Text h4>Giới thiệu</Text>}>

@@ -7,7 +7,7 @@ import useCart from '../../swr/cart';
 import useCategories from '../../swr/category';
 import CartItem from '../Cart/CartItem';
 import React from 'react';
-import { formatNumber } from '../../lib';
+import { formatNumber, parseLabelPrice } from '../../lib';
 import StyleLink from '../../components/StyleLink';
 
 
@@ -28,7 +28,7 @@ export default function Nav() {
             return 0;
         }
         var total = 0;
-        cart?.map(item => { total += item?.variantSelected?.price * item.amount })
+        cart?.map(item => { total += parseLabelPrice(item?.variantSelected?.label)?.price * item.amount })
 
         return total
     }, [cart])
