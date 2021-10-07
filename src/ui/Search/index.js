@@ -1,4 +1,4 @@
-import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMediaQuery, Image, Link, Select, useTheme } from '@geist-ui/react';
+import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMediaQuery, Image, Link, Select, useTheme, Breadcrumbs } from '@geist-ui/react';
 import { Navigation, ShoppingBag } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -19,13 +19,13 @@ import StyleLink from '../../components/StyleLink';
 
 
 const getSortFunc = (a, b, sort) => {
-    if(sort == 'asc'){
+    if (sort == 'asc') {
         return a.price > b.price
     }
-    if(sort == 'desc'){
+    if (sort == 'desc') {
         return a.price < b.price
     }
-    else{
+    else {
         return new Date(a.timestamp).getTime() < new Date(b.timestamp).getTime()
     }
 }
@@ -45,7 +45,7 @@ export default function Search(props) {
     const location = useLocation();
     const { data: categories, isLoading: isCategoriesLoading } = useCategories();
     const { data: brands, isLoading: isBrandsLoading } = useBrands();
-    const { data: products, fetchFilter, mutate: mutateProducts } = useProducts([categories, brands]);
+    const { data: products, isError, fetchFilter, mutate: mutateProducts } = useProducts([categories, brands]);
     // const { categories, brands } = useGlobalState()
 
 
@@ -67,7 +67,7 @@ export default function Search(props) {
         fetchFilter({
             categories: category ? [`categories.${categoryId}.id`, '==', categoryId] : null,
             brands: brand ? [`brands.${brandId}.id`, '==', brandId] : null,
-            sort: sort && [ 'price', sort !== 'timestamp' ? sort : 'desc']
+            sort: sort && ['price', sort !== 'timestamp' ? sort : 'desc']
 
         }).then(res => {
             mutateProducts(res, false)
@@ -80,8 +80,9 @@ export default function Search(props) {
 
 
 
-    return <Page render='effect' width='100%' >
+    return <Page render='effect-seo' width='100%' >
         <Nav />
+        <Spacer h={2} />
         <Page.Content style={{ minHeight: "80vh" }}>
             {isMobile && <>
                 <Text b h4>Tìm nước hoa bạn muốn</Text>
@@ -114,7 +115,7 @@ export default function Search(props) {
                 <Spacer h={2} />
             </>}
 
-            <Grid.Container gap={2} justify="center">
+            <Grid.Container width='100vw' gap={2} >
                 <Grid xs={0} md={4} pl='2%' direction='column'>
                     <Text h3>Danh mục</Text>
                     <StyleLink
@@ -138,12 +139,12 @@ export default function Search(props) {
                     <StyleLink
                         href={{
                             pathname: "/search",
-                            search: '?' + new URLSearchParams({ category, brand:'', sort })
+                            search: '?' + new URLSearchParams({ category, brand: '', sort })
                         }}
                     >
                         Tất cả
                     </StyleLink>
-                  
+
                     {brands?.map((item, id) => <StyleLink
                         href={{
                             pathname: "/search",
@@ -151,13 +152,15 @@ export default function Search(props) {
                         }}
                         isActive={brand == item.label} key={id}>{item.label}</StyleLink>)}
                 </Grid>
-                <Grid xs={24} md={16}>
-
-                    <Grid.Container gap={2} >
-                        {
-                            products?.sort((a,b) => getSortFunc(a,b,sort))?.map((item, id) => <Grid xs={24} sm={12} md={5} ><ProductCard data={item} /></Grid>)
-                        }
-                    </Grid.Container>
+                <Grid xs={24} md={16} >
+                    <div style={{ width: "100%" }}>
+                        {products?.length == 0 && <Text>Không tìm thấy nước hoa phù hợp</Text>}
+                        <Grid.Container gap={2}  >
+                            {
+                                products?.sort((a, b) => getSortFunc(a, b, sort))?.map((item, id) => <Grid xs={24} sm={12} md={5} ><ProductCard data={item} /></Grid>)
+                            }
+                        </Grid.Container>
+                    </div>
 
                 </Grid>
                 <Grid xs={0} md={4} direction='column'>

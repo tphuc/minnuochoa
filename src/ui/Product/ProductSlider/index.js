@@ -1,6 +1,7 @@
 import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMediaQuery, Image, Link, Select, useTheme, Divider } from '@geist-ui/react';
 import { Navigation, ShoppingBag } from '@geist-ui/react-icons';
 import React from 'react';
+import Footer from '../../Footer';
 
 import './index.css'
 
@@ -60,6 +61,7 @@ export default function ProductSlider({
             }
         </div>
         <Divider />
+       
     </div>
 }
 

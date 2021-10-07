@@ -9,14 +9,17 @@ import CartItem from '../Cart/CartItem';
 import React from 'react';
 import { formatNumber, parseLabelPrice } from '../../lib';
 import StyleLink from '../../components/StyleLink';
+import Logo from '../../logo.jpg'
 
 
 
+export default function Nav({
+    logo = true,
 
-export default function Nav() {
+}) {
 
     const { data: categories, isError: isCategoriesError, isLoading: isCategoriesLoading } = useCategories();
-    const { palette } = useTheme();
+    const { palette,  } = useTheme();
     const [openCart, setOpenCart] = useState(false)
     const isMobile = useMediaQuery('mobile');
     const history = useHistory()
@@ -35,7 +38,7 @@ export default function Nav() {
 
 
 
-    return <div>
+    return <div style={{position:"absolute", left:0, width:"100vw", }}>
         <Drawer visible={openCart} onClose={() => setOpenCart(false)} style={{ borderRadius: 0, }} placement="right">
 
             <div style={{ display: "flex", justifyContent: "start" }}>
@@ -66,8 +69,8 @@ export default function Nav() {
             </Drawer.Content>
         </Drawer>
 
-        <Page.Header style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }} >
-            <Image disableSkeleton={true} height='60px' width='auto' style={{ cursor: "pointer" }} onClick={() => history.push('/')} src="https://cdn.dribbble.com/users/3812993/screenshots/9843080/media/74c2871ed47c78d31d47b4cc949a8914.png?compress=1&resize=400x300" />
+        <div style={{ display: "flex", zIndex:1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", height:60 }} >
+            {logo && <Image disableSkeleton={true} height='60px' width='auto' style={{ cursor: "pointer" }} onClick={() => history.push('/')} src={Logo} />}
             <Spacer y={0.2} />
             {!isMobile && categories?.map((item, id) => <StyleLink 
             style={{
@@ -83,7 +86,7 @@ export default function Nav() {
                 <Button onClick={() => setOpenCart(true)} iconRight={<ShoppingBag />} auto scale={2 / 3} />
             </Badge.Anchor>
             <Spacer y={0.2} />
-        </Page.Header>
+        </div>
 
     </div>
 }

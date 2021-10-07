@@ -1,0 +1,10 @@
+.aws-btn {
+
+    --organic-arrow-color: #538bd5;
+    --control-button-width: 10%;
+    --control-button-height: 25%;
+    --control-button-background: transparent;
+    --control-bullet-color: #62a4fa;
+    --control-bullet-active-color: #538bd5;
+ 
+    }

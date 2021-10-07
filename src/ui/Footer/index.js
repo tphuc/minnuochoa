@@ -8,7 +8,7 @@ import useCategories from '../../swr/category';
 import CartItem from '../Cart/CartItem';
 import React from 'react';
 import { formatNumber } from '../../lib';
-import LogoImg from '../../logo.png'
+import LogoImg from '../../logo.jpg'
 
 
 
@@ -36,7 +36,7 @@ export default function Footer() {
 
     return <div>
         <Divider />
-        <Grid.Container gap={2} mb={2} >
+        <Grid.Container gap={2} marginBottom={6} >
             <Grid xs={24} md={2}  >
                 <div>
                     <Image disableSkeleton={true} height='60px' width='auto' src={LogoImg}></Image>

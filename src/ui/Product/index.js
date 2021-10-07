@@ -15,6 +15,7 @@ import { filterQuery, useSearchMeta, getBrandPath } from '../../lib/use-search-m
 import ProductSidebar from './ProductSidebar';
 import ProductSlider from './ProductSlider';
 import { useParams } from 'react-router-dom';
+import Footer from '../Footer';
 
 
 
@@ -34,7 +35,7 @@ export default function Product({
     const isMobile = useMediaQuery('mobile');
 
 
-    return <Page render='effect' width='100%' >
+    return <Page render='effect' width='100vw' >
         <Nav />
         <Page.Content>
             <Grid.Container gap={2} >
@@ -47,7 +48,7 @@ export default function Product({
 
             </Grid.Container>
         </Page.Content>
-
+        <Footer/>
 
     </Page>
 }

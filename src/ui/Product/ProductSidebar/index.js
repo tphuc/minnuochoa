@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import React from 'react';
 import useCart from '../../../swr/cart';
 import { formatNumber, parseLabelPrice } from '../../../lib';
+import Footer from '../../Footer';
 
 
 
@@ -47,7 +48,7 @@ export default function ProductSidebar({
         }
 
         <Spacer h={0.5} />
-        <Text type='success' >{ formatNumber( parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).price) }</Text>
+        <Text h3 type='success' >{ formatNumber( parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).price) }</Text>
         <Divider/>
         <Description title={<Text marginBottom={0} h5>Xuất xứ</Text>} content={<Text >{data?.origin?.map(item => item.label)}</Text>} />
         <Description title={<Text marginBottom={0} h5>Giới tính</Text>} content={<Text >{data?.gender?.map(item => item.label)}</Text>} />
@@ -59,9 +60,10 @@ export default function ProductSidebar({
         scale={2} type='secondary-light' iconRight={<ShoppingBag />} width='100%'>Thêm vào giỏ</Button>
         <Collapse.Group>
             <Collapse title={<Text h4>Giới thiệu</Text>}>
-                <p dangerouslySetInnerHTML={{__html:data?.descriptionHtml}}></p>
+                <p dangerouslySetInnerHTML={{__html:data?.introduction}}></p>
             </Collapse>
         </Collapse.Group>
+       
 
     </div>
 }
