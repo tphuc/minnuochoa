@@ -69,10 +69,11 @@ export default function Nav({
             </Drawer.Content>
         </Drawer>
 
-        <div style={{ display: "flex", zIndex:1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", height:60 }} >
+        <div style={{ display: "flex", zIndex:1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", height:60,  }} >
             {logo && <Image disableSkeleton={true} height='60px' width='auto' style={{ cursor: "pointer" }} onClick={() => history.push('/')} src={Logo} />}
             <Spacer y={0.2} />
             {!isMobile && categories?.map((item, id) => <StyleLink 
+            inactiveColor={palette.accents_2}
             style={{
                 marginLeft:10
             }}

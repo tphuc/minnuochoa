@@ -14,13 +14,13 @@ export default function ProductCard({
 
   const { palette } = useTheme()
   return <Link href={`/product/${data.id}`}>
-    <Card style={{ border: "none", }} width="100%">
+    <Card style={{ border: "none", }} width="100%" {...props}>
 
-      <Image disableAutoResize className='product-image' style={{ objectFit: "cover", objectPosition: "center center", minWidth: 160 }} src={data.images[0].name}
-        height="220px" width="100%" draggable={false} />
-      <Card.Content style={{ padding: 10, paddingTop:0 }}>
-        <Text h5 mb={0}>{data.label + data.label}</Text>
-        <Text type="secondary" small>{formatNumber(parseLabelPrice(data.variants[0].label).price)} - {formatNumber( parseLabelPrice(data.variants[data.variants.length - 1].label).price )}</Text>
+      <Image disableAutoResize className='product-image' scale={0.8} style={{ objectFit: "contain", objectPosition: "center center", minWidth: 160 }} src={data.images[0].name}
+        height="160px" width="100%" draggable={false} />
+      <Card.Content style={{ padding: 10, paddingTop:0, display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center" }}>
+        <Text h6 mb={0}>{data.label}</Text>
+        <Text style={{fontSize:14}} type="secondary" small>{formatNumber(parseLabelPrice(data.variants[0].label).price)} - {formatNumber( parseLabelPrice(data.variants[data.variants.length - 1].label).price )}</Text>
       </Card.Content>
     </Card>
   </Link>

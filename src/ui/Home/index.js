@@ -50,18 +50,27 @@ export default function Home(props) {
                     </div>
                 </Grid> */}
             </Grid.Container>
+            <Spacer h={2}/>
+            <Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
             <Marquee style={{width:"100vw"}} gradient={false}>
-            {categories?.map((item, id) => <div key={id} style={{ display: "flex", flexDirection: "column",  backgroundColor: palette.background }}>
+            {categories?.map((item, id) => <div key={id} style={{ display: "flex", flexDirection: "column", padding:15, backgroundColor: palette.background }}>
                         <Image onClick={() => history.push('/search')} style={{cursor:"pointer", objectFit:"cover"}} width={'350px'} height={'340px'}  src={item.images[0].name} />
                         <Button  scale={1.5} onClick={() => history.push('/search')} type='secondary-light'>{item.label}</Button>
                     </div>)}
             </Marquee>
-            <Text my={1} style={{ textAlign: "center" }} b h3>Sản phẩm nổi bật</Text>
-            <Grid.Container wrap='wrap' direction='row' justify='flex-start' gap={2} margin={0} style={{maxWidth:"100vw"}}  >
+            <Spacer h={2} />
+            <Text my={1} style={{ textAlign: "center" }} b h3>SẢN PHẨM NỔI BẬT</Text>
+            {/* <Grid.Container wrap='wrap' direction='row' justify='flex-start' gap={0} margin={0} style={{maxWidth:"100vw"}}  >
                 {
-                    products?.map((item, id) => <Grid xs={24} sm={11} md={3} ><ProductCard data={item} /></Grid>)
+                    products?.map((item, id) => <Grid xs={12} sm={12} md={3} ><ProductCard data={item} /></Grid>)
                 }
-            </Grid.Container>
+            </Grid.Container> */}
+            <Marquee speed={60} style={{width:"100%"}} gradient={false}>
+            {
+                    products?.map((item, id) => <ProductCard width={'160px'} data={item} />)
+                }
+            </Marquee>
+           
             <div style={{ backgroundColor: palette.accents_1 }}>
                 <Spacer h={5} />
                 <Text my={1} style={{ textAlign: "center" }} b h3>ĐA DẠNG SẢN PHẨM, CẬP NHẬT LIÊN TỤC</Text>
