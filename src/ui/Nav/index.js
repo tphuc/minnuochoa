@@ -38,7 +38,9 @@ export default function Nav({
 
 
 
-    return <div style={{position:"absolute", left:0, width:"100vw", }}>
+    return <div 
+    style={{position:"relative", left:0, width:"100%", }}
+    >
         <Drawer visible={openCart} onClose={() => setOpenCart(false)} style={{ borderRadius: 0, }} placement="right">
 
             <div style={{ display: "flex", justifyContent: "start" }}>
