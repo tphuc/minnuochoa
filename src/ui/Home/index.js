@@ -41,7 +41,6 @@ export default function Home(props) {
 
     const { data: categories, isError, isLoading } = useCategories();
     const { data: products } = useHightlightProducts()
-    console.log(products)
     const isMobile = useMediaQuery('mobile')
 
     return <div  >
@@ -96,8 +95,8 @@ export default function Home(props) {
             </Grid.Container>
             <Spacer h={2} />
             <Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
-            <Marquee style={{ width: "100vw" }} gradient={false}>
-                {categories?.map((item, id) => <div key={id} style={{ display: "flex", flexDirection: "column", padding: 15, backgroundColor: palette.background }}>
+            <Marquee speed={80} style={{ width: "100vw" }} gradient={false}>
+                {categories?.map((item, id) => <div key={id} style={{ display: "flex", flexDirection: "column", padding: 10, backgroundColor: palette.background }}>
                     <Image onClick={() => history.push('/search')} style={{ cursor: "pointer", objectFit: "cover" }} width={'350px'} height={'340px'} src={item?.images[0]?.name} />
                     <Button scale={1.5} onClick={() => history.push('/search')} type='secondary-light'>{item.label}</Button>
                 </div>)}

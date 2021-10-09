@@ -6,7 +6,7 @@ import useCart from '../../../swr/cart';
 import { formatNumber, parseLabelPrice } from '../../../lib';
 import Footer from '../../Footer';
 
-
+import './index.css'
 
 const data = [
     {
@@ -58,9 +58,9 @@ export default function ProductSidebar({
         <Button 
         onClick={addToCart} 
         scale={2} type='secondary-light' iconRight={<ShoppingBag />} width='100%'>Thêm vào giỏ</Button>
-        <Collapse.Group>
-            <Collapse title={<Text h4>Giới thiệu</Text>}>
-                <p dangerouslySetInnerHTML={{__html:data?.introduction}}></p>
+        <Collapse.Group style={{ width:"100%"}}>
+            <Collapse style={{width:"100%"}} title={<Text h4>Giới thiệu</Text>}>
+                <div className='content-description' style={{width:"100%", whiteSpace:'break-spaces'}} dangerouslySetInnerHTML={{__html:data?.introduction}}></div>
             </Collapse>
         </Collapse.Group>
        

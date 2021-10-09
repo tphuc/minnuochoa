@@ -19,3 +19,7 @@
   min-height: 100%;
   scroll-snap-align: center;
 }
+
+.content-description > div{
+    width: 100% !important;
+}

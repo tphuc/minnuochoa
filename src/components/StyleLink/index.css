@@ -1,4 +1,9 @@
-.styled-link:hover{
-    background: #011a36;
+.styled-link{
+    color: #44799c;
     transition: 0.4s ease all;
 }
+
+.styled-link:hover{
+    color: #06315c;
+}
+

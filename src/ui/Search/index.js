@@ -44,10 +44,12 @@ export default function Search(props) {
     const history = useHistory();
     const location = useLocation();
     const { data: categories, isLoading: isCategoriesLoading } = useCategories();
+    
     const { data: brands, isLoading: isBrandsLoading } = useBrands();
+    
     const { data: products, isError, fetchFilter, mutate: mutateProducts } = useProducts([categories, brands]);
-    // const { categories, brands } = useGlobalState()
 
+    // const { categories, brands } = useGlobalState()
 
 
     const { data: sorts } = useSorts();
@@ -57,26 +59,6 @@ export default function Search(props) {
     const isMatchCategorySlug = React.useCallback((str) => {
         return location.pathname.includes(str)
     }, [location.pathname])
-
-
-
-    React.useEffect(() => {
-        let categoryId = findIdByLabel(categories || [], category)
-        let brandId = findIdByLabel(brands || [], brand)
-
-        fetchFilter({
-            categories: category ? [`categories.${categoryId}.id`, '==', categoryId] : null,
-            brands: brand ? [`brands.${brandId}.id`, '==', brandId] : null,
-            sort: sort && ['price', sort !== 'timestamp' ? sort : 'desc']
-
-        }).then(res => {
-            mutateProducts(res, false)
-        })
-
-
-
-
-    }, [brand, category, sort])
 
 
 

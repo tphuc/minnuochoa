@@ -25,6 +25,11 @@ const parseLabelPrice = (string) => {
     return { label, price: parseFloat(price)}
 }
 
+function toArray(array){
+    return Object.values(array)
+}
+
+
 
 const totalprice = (cart) => {
     if (!cart) {
@@ -46,5 +51,6 @@ export {
     formatNumber,
     parseLabelPrice,
     findIdByLabel,
-    totalprice
+    totalprice,
+    toArray
 }

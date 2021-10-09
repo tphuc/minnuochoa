@@ -42,7 +42,7 @@ export default function Product({
                 <Grid xs={24}  md={14} >
                     <ProductSlider images={product?.images || []} />
                 </Grid>
-                <Grid xs={24}  md={8}>
+                <Grid xs={24}  md={10}>
                     <ProductSidebar data={product}/>
                 </Grid>
 

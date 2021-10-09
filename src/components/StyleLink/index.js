@@ -16,20 +16,20 @@ export default function StyleLink({
     const {palette} = useTheme();
     const history = useHistory()
     return (
-    <Text 
-        // className='styled-link'
+    <div 
+        className='styled-link'
         span
         onClick={(e) => {
             history.push(href)
         }} 
         style={{
-            color: isActive ? palette.accents_8 : inactiveColor ? inactiveColor : palette.accents_3,
+          
             cursor: "pointer",
-            textDecoration:  underline ?  'underline' : 'none',
+            textDecoration:  isActive ?  'underline' : 'none',
             ...style
         }}
         {...props}
     >
         {props.children}
-    </Text>)
+    </div>)
 }
