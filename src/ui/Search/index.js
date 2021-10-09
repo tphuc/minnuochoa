@@ -80,10 +80,10 @@ export default function Search(props) {
 
 
 
-    return <Page render='effect-seo' width='100%' >
+    return <Page padding={0} render='effect-seo' width='100%' >
         <Nav />
         <Spacer h={2} />
-        <Page.Content style={{ minHeight: "80vh" }}>
+        <Page.Content margin={0} style={{ minHeight: "80vh" }}>
             {isMobile && <>
                 <Text b h4>Tìm nước hoa bạn muốn</Text>
                 <Select width='100%' placeholder="Danh mục" onChange={(val) => {
@@ -155,9 +155,9 @@ export default function Search(props) {
                 <Grid xs={24} md={16} >
                     <div style={{ width: "100%" }}>
                         {products?.length == 0 && <Text>Không tìm thấy nước hoa phù hợp</Text>}
-                        <Grid.Container gap={2}  >
+                        <Grid.Container gap={isMobile ? 0 : 2}  >
                             {
-                                products?.sort((a, b) => getSortFunc(a, b, sort))?.map((item, id) => <Grid xs={24} sm={12} md={5} ><ProductCard data={item} /></Grid>)
+                                products?.sort((a, b) => getSortFunc(a, b, sort))?.map((item, id) => <Grid xs={12} sm={8} md={6} ><ProductCard data={item} /></Grid>)
                             }
                         </Grid.Container>
                     </div>
