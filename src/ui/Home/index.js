@@ -103,7 +103,7 @@ export default function Home(props) {
                     <Button scale={1.5} onClick={() => history.push('/search')} type='secondary-light'>{item.label}</Button>
                 </div>)}
             </Marquee> */}
-<Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
+        {isMobile && <Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>}
 
             {
                 isMobile && <div style={{ overflowY: "scroll", display: "flex", flexDirection: "row" }}>
