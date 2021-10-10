@@ -20,7 +20,7 @@ export default function ProductCard({
         height="160px" width="100%" draggable={false} />
       <Card.Content style={{ padding: 10, paddingTop:0, display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center" }}>
       <Text style={{width:'100%', textAlign:"center", whiteSpace:"nowrap", overflow:"hidden", textOverflow:'ellipsis', margin:0}} truncate h6 mb={0}>{ toArray(data.brands)[0].label}</Text>
-        <Text style={{width:'100%', textAlign:"center", whiteSpace:"nowrap", overflow:"hidden", textOverflow:'ellipsis', WebkitLineClamp:2,  }} truncate margin={0}>{data.label}</Text>
+        <Text style={{maxWidth:'100%', height:50,  textAlign:"center", overflow:"hidden", textOverflow:'ellipsis', }} truncate margin={0}>{data.label}</Text>
         <Text style={{fontSize:14, width:'100%', textAlign:"center", whiteSpace:"nowrap", overflow:"hidden", textOverflow:'ellipsis'}} type="secondary" small>{formatNumber(parseLabelPrice(data.variants[0].label).price)} - {formatNumber( parseLabelPrice(data.variants[data.variants.length - 1].label).price )}</Text>
       </Card.Content>
     </Card>

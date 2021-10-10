@@ -46,7 +46,7 @@ export default function Home(props) {
     return <div  >
 
         <div>
-            <Grid.Container direction='row' margin={0} gap={0}   >
+            <Grid.Container style={{ minHeight: '100vh' }} direction='row' margin={0} gap={0}   >
                 <Grid xs={24} sm={24} md={15}
                     direction='column'
                     style={{ backgroundRepeat: 'no-repeat', width: "100vw", backgroundSize: "cover", backgroundPosition: "center", backgroundImage: `linear-gradient(rgba(20,23,27,0.82) 40vh, rgba(21, 25, 31, 0.2), rgba(21, 25, 31, 0)), url(https://res.cloudinary.com/minnuochoa-com/image/upload/v1633691914/244973743_2349931545143229_7997632194508024423_n_dmff7e.jpg)` }}
@@ -62,20 +62,22 @@ export default function Home(props) {
 
                 </Grid>
                 <Grid xs={0} sm={24} md={9} >
-                    <Grid.Container height={'100vh'} width='100%' wrap='wrap'>
+                    <Grid.Container width='100%' wrap='wrap'>
                         {
-                            categories?.slice(0, 5)?.map((item, id) => <Grid key={id} xs={8} md={12} style={{ position: "relative", background: '#111' }}>
+                            categories?.slice(0, 5)?.map((item, id) => <Grid key={id} xs={0} md={12} style={{ position: "relative", background: '#111' }}>
+
                                 <HeroCard data={item} />
+
                             </Grid>)
                         }
-                        <Grid xs={8} md={12} style={{ position: "relative", background: palette.accents_7 }}>
+                        <Grid xs={0} md={12} style={{ position: "relative", background: palette.accents_7 }}>
                             <div className='hero-card'
                                 onClick={() => history.push('/search')}
                                 style={{
-                                    
+
                                     cursor: "pointer",
                                     width: "100%", height: "100%",
-                                    flexDirection:"column",
+                                    flexDirection: "column",
                                     display: "flex", justifyContent: "center", alignItems: "center",
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
@@ -83,9 +85,9 @@ export default function Home(props) {
                                 }}
                             >
                                 <div className='hero-card-overlay'></div>
-                                <Text  style={{ color: "#fff", zIndex: 1 }} h5>Xem bộ sưu tập</Text> 
-                                <ArrowRightCircle color='#fff'/>
-                               
+                                <Text style={{ color: "#fff", zIndex: 1 }} h5>Xem bộ sưu tập</Text>
+                                <ArrowRightCircle color='#fff' />
+
                             </div>
                         </Grid>
 
@@ -94,13 +96,40 @@ export default function Home(props) {
 
             </Grid.Container>
             <Spacer h={2} />
-            <Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
+            {/* <Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
             <Marquee speed={80} style={{ width: "100vw" }} gradient={false}>
                 {categories?.map((item, id) => <div key={id} style={{ display: "flex", flexDirection: "column", padding: 10, backgroundColor: palette.background }}>
                     <Image onClick={() => history.push('/search')} style={{ cursor: "pointer", objectFit: "cover" }} width={'350px'} height={'340px'} src={item?.images[0]?.name} />
                     <Button scale={1.5} onClick={() => history.push('/search')} type='secondary-light'>{item.label}</Button>
                 </div>)}
-            </Marquee>
+            </Marquee> */}
+<Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
+
+            {
+                isMobile && <div style={{ overflowY: "scroll", display: "flex", flexDirection: "row" }}>
+
+                    {
+                        categories?.map((item, id) => <div 
+                            onClick={() => history.push({
+                                pathname:"/search",
+                                search: '?' + new URLSearchParams({ category: item.label })
+                            })}
+                            key={id}
+                            style={{
+                                display:"flex",
+                                flexDirection:"column",
+                                textAlign:"center",
+                                padding:10
+                            }}
+                            >
+                                <Image width='100px' height='100px' style={{ borderRadius:"50%"}} src={item.images[0].name} alt=''/>
+                                <Text  style={{  zIndex: 1 }} h5>{item.label}</Text>
+                            </div>)
+                    }
+                    
+
+                </div>
+            }
             <Spacer h={2} />
             <Text my={1} style={{ textAlign: "center" }} b h3>SẢN PHẨM NỔI BẬT</Text>
             {/* <Grid.Container wrap='wrap' direction='row' justify='flex-start' gap={0} margin={0} style={{maxWidth:"100vw"}}  >
