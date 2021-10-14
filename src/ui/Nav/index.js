@@ -4,14 +4,13 @@ import { ExternalLink, Navigation, ShoppingBag, X } from '@geist-ui/react-icons'
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useCart from '../../swr/cart';
-import useCategories from '../../swr/category';
 import CartItem from '../Cart/CartItem';
 import React from 'react';
 import { formatNumber, parseLabelPrice } from '../../lib';
 import StyleLink from '../../components/StyleLink';
 import Logo from '../../logo.jpg'
 
-
+import useCategories from '../../framework/supabase/categories'
 
 export default function Nav({
     logo = true,

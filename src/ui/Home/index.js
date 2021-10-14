@@ -2,15 +2,15 @@ import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMedia
 import { Award, ChevronRight, Gift, Navigation, Package, ShoppingBag, ShoppingCart, ArrowRightCircle } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import useCategories from '../../swr/category';
 import Footer from '../Footer';
 import Nav from '../Nav';
 import Marquee from "react-fast-marquee";
-
+import useHightlightProducts from '../../framework/supabase/hightlight-products'
 
 import './index.css'
-import useHightlightProducts from '../../swr/hightlight-products';
+
 import ProductCard from '../Product/ProductCard';
+import useCategories from '../../framework/supabase/categories';
 
 
 const HeroCard = ({ data = { label: "ABC", images: [{ name: "" }] } }) => {
@@ -39,12 +39,11 @@ export default function Home(props) {
     const location = useLocation();
     const { palette } = useTheme()
 
-    const { data: categories, isError, isLoading } = useCategories();
+    const { data: categories, isError, isLoading } = useCategories()
     const { data: products } = useHightlightProducts()
     const isMobile = useMediaQuery('mobile')
 
-    return <div  >
-
+    return <div>
         <div>
             <Grid.Container style={{ minHeight: '100vh' }} direction='row' margin={0} gap={0}   >
                 <Grid xs={24} sm={24} md={15}
@@ -137,7 +136,7 @@ export default function Home(props) {
                     products?.map((item, id) => <Grid xs={12} sm={12} md={3} ><ProductCard data={item} /></Grid>)
                 }
             </Grid.Container> */}
-            <Marquee speed={60} style={{ width: "100%" }} gradient={false}>
+            <Marquee speed={0} style={{ width: "100%" }} gradient={false}>
                 {
                     products?.map((item, id) => <ProductCard width={'160px'} data={item} />)
                 }
@@ -178,12 +177,8 @@ export default function Home(props) {
 
                 </Grid.Container>
             </div>
-
         </div>
-
         <Footer />
-
-
     </div>
 }
 

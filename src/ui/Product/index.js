@@ -1,5 +1,5 @@
-import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMediaQuery, Image, Link, Select, useTheme } from '@geist-ui/react';
-import { Navigation, ShoppingBag } from '@geist-ui/react-icons';
+import { Page, Spinner, Tabs, Grid, Card, Text, Button, Avatar, Spacer, useMediaQuery, Image, Link, Select, useTheme, Breadcrumbs } from '@geist-ui/react';
+import { ChevronLeft, Navigation, ShoppingBag } from '@geist-ui/react-icons';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Nav from '../Nav';
@@ -16,6 +16,7 @@ import ProductSidebar from './ProductSidebar';
 import ProductSlider from './ProductSlider';
 import { useParams } from 'react-router-dom';
 import Footer from '../Footer';
+import useProductItem from '../../framework/supabase/product-item';
 
 
 
@@ -28,9 +29,11 @@ export default function Product({
 
     const history = useHistory();
     let {id} = useParams()
-    console.log(id)
 
-    const { data: product } = useProductItemDetail(id);
+
+
+    const { data: product } = useProductItem(id);
+    console.log(product)
 
     const isMobile = useMediaQuery('mobile');
 
@@ -38,6 +41,11 @@ export default function Product({
     return <Page render='effect' width='100vw' >
         <Nav />
         <Page.Content>
+            <Button scale={1.5}  type='abort' icon={<ChevronLeft/>}>Tất cả sản phẩm</Button>
+            {/* <Breadcrumbs>
+  <Breadcrumbs.Item  href="/search"><Text h4>Tất cả sản phẩm</Text></Breadcrumbs.Item>
+  <Breadcrumbs.Item href=""><Text h4>{product?.id}</Text></Breadcrumbs.Item>
+</Breadcrumbs> */}
             <Grid.Container gap={2} >
                 <Grid xs={24}  md={14} >
                     <ProductSlider images={product?.images || []} />

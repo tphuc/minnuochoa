@@ -44,15 +44,15 @@ export default function ProductSidebar({
         <Text h3>Dung tích</Text>
 
         {
-            data?.variants?.map((item, idx) => <Button onClick={() => setActiveVariantIndex(idx)} type={activeVariantIndex == idx ? 'secondary-light' : 'default'} mr={1} auto>{parseLabelPrice(item?.label).label}</Button>)
+            data?.variants?.map((item, idx) => <Button onClick={() => setActiveVariantIndex(idx)} type={activeVariantIndex == idx ? 'secondary-light' : 'default'} mr={1} auto>{ parseLabelPrice(item?.label).label}</Button>)
         }
 
         <Spacer h={0.5} />
-        <Text h3 type='success' >{ formatNumber( parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).price) }</Text>
+        <Text h3 type='success' >{ data?.variants?.[activeVariantIndex]?.label ? formatNumber( parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).price) : '' }</Text>
         <Divider/>
-        <Description title={<Text marginBottom={0} h5>Xuất xứ</Text>} content={<Text >{data?.origin?.map(item => item.label)}</Text>} />
-        <Description title={<Text marginBottom={0} h5>Giới tính</Text>} content={<Text >{data?.gender?.map(item => item.label)}</Text>} />
-        <Description title={<Text marginBottom={0} h5>Phong cách</Text>} content={<Text >{data?.style?.map(item => item.label)}</Text>} />
+        <Description title={<Text marginBottom={0} h5>Xuất xứ</Text>} content={<Text >{data?.origin}</Text>} />
+        <Description title={<Text marginBottom={0} h5>Giới tính</Text>} content={<Text >{data?.gender}</Text>} />
+        <Description title={<Text marginBottom={0} h5>Phong cách</Text>} content={<Text >{data?.style}</Text>} />
         <Spacer h={1} />
         <Divider/>
         <Button 

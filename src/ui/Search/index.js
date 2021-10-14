@@ -5,16 +5,14 @@ import { useHistory, useLocation } from 'react-router-dom';
 import Nav from '../Nav';
 import ProductCard from '../Product/ProductCard';
 
-import useBrands from '../../swr/brand';
 
-import useCategories from '../../swr/category';
-import useProducts from '../../swr/products';
 import useSorts from '../../swr/sort';
 import { findIdByLabel, getSlug, useQuery } from '../../lib';
-import { filterQuery, useSearchMeta, getBrandPath } from '../../lib/use-search-meta';
 import Footer from '../Footer';
-import { useGlobalState } from '../../swr';
 import StyleLink from '../../components/StyleLink';
+import useProducts from '../../framework/supabase/products';
+import useCategories from '../../framework/supabase/categories';
+import useBrands from '../../framework/supabase/brands';
 
 
 
@@ -41,19 +39,26 @@ export default function Search(props) {
     const category = _category === 'null' ? null : _category
     const _brand = useQuery().get('brand')
     const brand = _brand === 'null' ? null : _brand
+    const [filter, setFilter] = React.useState({});
     const history = useHistory();
     const location = useLocation();
     const { data: categories, isLoading: isCategoriesLoading } = useCategories();
+
     
     const { data: brands, isLoading: isBrandsLoading } = useBrands();
     
-    const { data: products, isError, fetchFilter, mutate: mutateProducts } = useProducts([categories, brands]);
-
-    // const { categories, brands } = useGlobalState()
-
+    const { data: products, isLoading: isProductsLoading, isError, fetchFilter, mutate: mutateProducts } = useProducts(filter);
 
     const { data: sorts } = useSorts();
     const isMobile = useMediaQuery('mobile');
+
+    
+
+
+    React.useEffect(() => {
+
+        setFilter({ brand, category, sort})
+    }, [sort, brand, category])
 
 
     const isMatchCategorySlug = React.useCallback((str) => {
@@ -66,7 +71,7 @@ export default function Search(props) {
         <Nav />
         <Spacer h={2} />
         <Page.Content margin={0} style={{ minHeight: "80vh" }}>
-            {isMobile && <>
+            {isMobile && <div style={{width:"100%", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
                 <Text b h4>Tìm nước hoa bạn muốn</Text>
                 <Select width='100%' placeholder="Danh mục" onChange={(val) => {
                     history.push({
@@ -95,9 +100,9 @@ export default function Search(props) {
                     {sorts?.map((item, id) => <Select.Option value={item.value} key={id}>{item.label}</Select.Option>)}
                 </Select>
                 <Spacer h={2} />
-            </>}
+            </div>}
 
-            <Grid.Container width='100vw' gap={2} >
+            <Grid.Container width='100vw'  >
                 <Grid xs={0} md={4} pl='2%' direction='column'>
                     <Text h3>Danh mục</Text>
                     <StyleLink
@@ -111,9 +116,9 @@ export default function Search(props) {
                     {categories?.map((item, id) => <StyleLink
                         href={{
                             pathname: "/search",
-                            search: '?' + new URLSearchParams({ category: item.label, brand, sort })
+                            search: '?' + new URLSearchParams({ category: item.id, brand, sort })
                         }}
-                        isActive={category == item.label}
+                        isActive={category == item.id}
                         key={id}>{item.label}</StyleLink>)}
 
                     <Spacer h={3} />
@@ -130,14 +135,18 @@ export default function Search(props) {
                     {brands?.map((item, id) => <StyleLink
                         href={{
                             pathname: "/search",
-                            search: '?' + new URLSearchParams({ category, brand: item.label, sort })
+                            search: '?' + new URLSearchParams({ category, brand: item.id, sort })
                         }}
-                        isActive={brand == item.label} key={id}>{item.label}</StyleLink>)}
+                        isActive={brand == item.id} key={id}>{item.label}</StyleLink>)}
                 </Grid>
-                <Grid xs={24} md={16} >
-                    <div style={{ width: "100%" }}>
+                <Grid xs={24} md={16} width='100%' height={'auto'}  >
+               
+                    <div style={{ width: "100%", display:"flex", flexDirection:"column"}}>
                         {products?.length == 0 && <Text>Không tìm thấy nước hoa phù hợp</Text>}
-                        <Grid.Container gap={isMobile ? 0 : 2}  >
+                        {isProductsLoading && <Spinner/>}
+
+                    
+                        <Grid.Container direction='row' justify='flex-start' gap={isMobile ? 0 : 2}  >
                             {
                                 products?.sort((a, b) => getSortFunc(a, b, sort))?.map((item, id) => <Grid xs={12} sm={8} md={6} ><ProductCard data={item} /></Grid>)
                             }

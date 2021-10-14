@@ -4,7 +4,7 @@ import { ExternalLink, Facebook, Instagram, MapPin, Navigation, Phone, ShoppingB
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useCart from '../../swr/cart';
-import useCategories from '../../swr/category';
+
 import CartItem from '../Cart/CartItem';
 import React from 'react';
 import { formatNumber } from '../../lib';
@@ -14,11 +14,7 @@ import LogoImg from '../../logo.jpg'
 
 export default function Footer() {
 
-    const { data: categories, isError: isCategoriesError, isLoading: isCategoriesLoading } = useCategories();
-    const { palette } = useTheme();
-    const [openCart, setOpenCart] = useState(false)
-    const isMobile = useMediaQuery('mobile');
-    const history = useHistory()
+
 
     const { data: cart } = useCart();
 
