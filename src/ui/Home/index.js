@@ -55,7 +55,10 @@ export default function Home(props) {
                     {/* <Spacer h={2}/> */}
                     <div style={{ padding: "5%", paddingTop: "12%" }}>
                         <Text style={{ color: "#ffffff" }} h2> Min Perfume </Text>
-                        <Text style={{ color: "#ffffff" }} > Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </Text>
+                        <Text style={{ color: "#ffffff" }} > Uy tín quý hơn vàng, bán niềm tin lãi tình cảm
+                            Sự hài lòng của các bạn là niềm vui của chúng tôi
+                            <br/>
+                            #minnuochoa - Chuyên các dòng nước hoa chính hãng xách tay Pháp , Mỹ , Đức từ bình dân đến cao cấp </Text>
                         <Button onClick={() => history.push('/search')} width={100} auto scale={1.5} type='primary-light' iconRight={<ChevronRight />}> Xem các sản phẩm </Button>
                     </div>
 
@@ -102,32 +105,32 @@ export default function Home(props) {
                     <Button scale={1.5} onClick={() => history.push('/search')} type='secondary-light'>{item.label}</Button>
                 </div>)}
             </Marquee> */}
-        <Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
+            <Text my={1} style={{ textAlign: "center" }} b h3>Ở ĐÂY MIN CÓ BÁN</Text>
 
-            <div style={{ overflowY: "scroll", cursor:"pointer", display: "flex", flexDirection: "row", justifyContent: isMobile?  'flex-start': "center" }}>
+            <div style={{ overflowY: "scroll", cursor: "pointer", display: "flex", flexDirection: "row", justifyContent: isMobile ? 'flex-start' : "center" }}>
 
-                    {
-                        categories?.map((item, id) => <div 
-                            onClick={() => history.push({
-                                pathname:"/search",
-                                search: '?' + new URLSearchParams({ category: item.label })
-                            })}
-                            key={id}
-                            style={{
-                                display:"flex",
-                                flexDirection:"column",
-                                textAlign:"center",
-                                padding:10
-                            }}
-                            >
-                                <Image  width={isMobile ?  '100px' : '160px'} height={isMobile ?  '100px' : '160px'} style={{ borderRadius:"50%"}} src={item.images[0].url} alt=''/>
-                                <Text  style={{  zIndex: 1 }} h5>{item.label}</Text>
-                            </div>)
-                    }
-                    
+                {
+                    categories?.map((item, id) => <div
+                        onClick={() => history.push({
+                            pathname: "/search",
+                            search: '?' + new URLSearchParams({ category: item.label })
+                        })}
+                        key={id}
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "center",
+                            padding: 10
+                        }}
+                    >
+                        <Image width={isMobile ? '100px' : '160px'} height={isMobile ? '100px' : '160px'} style={{ borderRadius: "50%" }} src={item.images[0].url} alt='' />
+                        <Text style={{ zIndex: 1 }} h5>{item.label}</Text>
+                    </div>)
+                }
 
-                </div>
-            
+
+            </div>
+
             <Spacer h={2} />
             <Text my={1} style={{ textAlign: "center" }} b h3>SẢN PHẨM NỔI BẬT</Text>
             {/* <Grid.Container wrap='wrap' direction='row' justify='flex-start' gap={0} margin={0} style={{maxWidth:"100vw"}}  >

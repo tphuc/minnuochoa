@@ -9,7 +9,7 @@ const ENDPOINT = 'categories'
 
 
 const fetcher = async (ENDPOINT) => {
-    let res = await supabase.from(ENDPOINT).select('*')
+    let res = await supabase.from(ENDPOINT).select('*').order('order')
     return res.data
    
 }
