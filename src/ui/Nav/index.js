@@ -29,8 +29,9 @@ export default function Nav({
         if (!cart) {
             return 0;
         }
+
         var total = 0;
-        cart?.map(item => { total += parseLabelPrice(item?.variantSelected?.label)?.price * item.amount })
+        cart?.map(item => { total += parseLabelPrice(item?.variant?.label)?.price * item.amount })
 
         return total
     }, [cart])

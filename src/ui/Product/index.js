@@ -41,7 +41,7 @@ export default function Product({
     return <Page render='effect' width='100vw' >
         <Nav />
         <Page.Content>
-            <Button scale={1.5}  type='abort' icon={<ChevronLeft/>}>Tất cả sản phẩm</Button>
+            <Button scale={1.5} onClick={() => history.push('/search')}  type='abort' icon={<ChevronLeft/>}>Tất cả sản phẩm</Button>
             {/* <Breadcrumbs>
   <Breadcrumbs.Item  href="/search"><Text h4>Tất cả sản phẩm</Text></Breadcrumbs.Item>
   <Breadcrumbs.Item href=""><Text h4>{product?.id}</Text></Breadcrumbs.Item>

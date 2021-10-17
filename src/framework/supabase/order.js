@@ -4,27 +4,14 @@ import useSWR from 'swr'
 import { supabase } from '.'
 
 
-const ENDPOINT = 'brands'
+const ENDPOINT = 'order'
 
 
 
-const fetcher = async (ENDPOINT) => {
-    let res = await supabase.from(ENDPOINT).select('*').order('label', {ascending: true})
-    return res.data
-   
-}
 
-export default function useBrands() {
-    const { data, error, mutate } = useSWR(ENDPOINT, fetcher)
-    return {
-        mutate,
-        data: data,
-        isLoading: !error && !data,
-        isError: error
-    }
-}
 
-export const BrandsCRUD = {
+
+export const OrderCrud = {
     create: async (data) => {
         let res = await supabase.from(ENDPOINT).insert(data)
         return res

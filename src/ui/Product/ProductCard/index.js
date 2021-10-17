@@ -13,7 +13,7 @@ export default function ProductCard({
 }) {
 
   const { palette } = useTheme()
-  return <Link href={`/product/${data.id}`} width='100%' style={{display:"flex", width:200, justifyContent:"center", alignItems:"center"}} >
+  return <Link href={`/product/${data.id}/${data.label}`} width='100%' style={{display:"flex", width:200, justifyContent:"center", alignItems:"center"}} >
     <Card style={{ border: "none", maxWidth:200  }} width="100%" >
       <div style={{width:200, height:200, display:"flex", justifyContent:"center", alignItems:"center"}}>
       <Image disableAutoResize className='product-image' scale={0.8} style={{ objectFit: "cover", objectPosition: "center center", width: 160 }} src={data.images[0].url}

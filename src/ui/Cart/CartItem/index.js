@@ -34,6 +34,7 @@ export default function CartItem({
 
 
     const deleteItem = () => {
+
         let index = cart?.findIndex(item => item.id == data?.id);
         if (index > -1) {
             let _cart = JSON.parse(Cookies.get('cart') || '[]');;
@@ -52,10 +53,10 @@ export default function CartItem({
 
     return <div>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "left" }}>
-            <Image margin={0} width={'100px'} height={'100px'} src={data.images[0].name} />
+            <Image margin={0} width={'100px'} height={'100px'} src={data.images[0].url} />
             <div>
                 <Text marginLeft={0.5} h4 >{data.label}</Text>
-                <Text marginLeft={0.5} type='secondary' p>{formatNumber(parseLabelPrice(data.variantSelected.label).price)}</Text>
+                <Text marginLeft={0.5} type='secondary' p>{formatNumber(parseLabelPrice(data.variant.label).price)}</Text>
 
             </div>
 

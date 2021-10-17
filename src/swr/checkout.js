@@ -8,10 +8,11 @@ import { firestore } from '../firebase';
 const ENDPOINT = 'orders'
 
 const addOrder = async (data) => {
-    let res = await addDoc(collection(firestore, ENDPOINT), {
-        ...data,
-        timestamp: serverTimestamp()
-    })
+    console.log(data)
+    // let res = await addDoc(collection(firestore, ENDPOINT), {
+    //     ...data,
+    //     timestamp: serverTimestamp()
+    // })
     return res
 }
 

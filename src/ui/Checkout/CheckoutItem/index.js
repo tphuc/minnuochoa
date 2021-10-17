@@ -18,10 +18,10 @@ export default function CheckoutItem({
     const { data: cart, } = useCart()
     return <div style={{ marginTop: 5 }}>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "left" }}>
-            <Image margin={0} width={'100px'} height={'100px'} src={data?.images[0].name} />
+            <Image margin={0} width={'100px'} height={'100px'} src={data?.images[0].url} />
             <div style={{marginLeft:5}}>
                 <Text margin={0} h4 >{data?.label}</Text>
-                <Text margin={0} type='secondary' p>{ formatNumber(parseLabelPrice(data?.variantSelected?.label).price)}</Text>
+                <Text margin={0} type='secondary' p>{ parseLabelPrice(data?.variant?.label).label} { formatNumber(parseLabelPrice(data?.variant?.label).price)}</Text>
                 <Text margin={0} type='secondary' h4>x {data?.amount}</Text>
             </div>
 

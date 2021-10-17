@@ -34,9 +34,12 @@ export default function ProductSidebar({
     const { mutate: cartMutate } = useCart()
 
     const addToCart = () => {
+
+        let { id, label, images, variants, ...fields} = data
+
         let lineItems = JSON.parse(Cookies.get('cart') || '[]');
-        Cookies.set('cart', JSON.stringify([...lineItems, {...data, variantSelected: data.variants[activeVariantIndex], amount: 1 }]))
-        cartMutate([...lineItems, data])
+        Cookies.set('cart', JSON.stringify([...lineItems, {id, label, images, variant: variants[activeVariantIndex], amount: 1 }]))
+        cartMutate()
     }
 
     return <div style={{ position: "relative", width:"100%" }}>

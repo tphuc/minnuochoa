@@ -9,8 +9,6 @@ const ENDPOINT = 'products'
 
 
 const fetcher = async (ENDPOINT, filter) => {
-
-    console.log('0000')
     let _res = supabase.from('products')
     .select(`
         *,
@@ -25,13 +23,12 @@ const fetcher = async (ENDPOINT, filter) => {
 
     for(let k in filter){
         if(filter[k]){
-          
             switch(k){
                 case 'brand':
                     _res = _res.filter('brand', 'eq', parseInt(filter.brand))
                     break
                 case 'category':
-                    _res = _res.filter('product_category.category_id', 'eq', parseInt(filter.category))
+                    _res.filter('product_category.category_id', 'eq', parseInt(filter.category))
                     break
                 case 'sort':
                     if(filter.sort == 'timestamp'){
@@ -44,9 +41,14 @@ const fetcher = async (ENDPOINT, filter) => {
             }
         }
     }
-    _res = _res.order('arrange', {ascending:false})
+
+
+  
+    _res.order('arrange', {ascending:false})
 
     let res = await _res
+    console.log(res)
+
 
 
     return res.data

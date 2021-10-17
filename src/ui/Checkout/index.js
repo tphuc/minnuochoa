@@ -9,6 +9,7 @@ import Nav from '../Nav';
 import CheckoutItem from './CheckoutItem';
 import { addOrder } from '../../swr/checkout';
 import Cookies from 'js-cookie';
+import { OrderCrud } from '../../framework/supabase/order';
 
 
 
@@ -64,7 +65,7 @@ export default function Checkout(props) {
             return
         }
         try{ 
-            await addOrder({
+            let res = await OrderCrud.create({
                 name,
                 phone,
                 address,
@@ -72,13 +73,17 @@ export default function Checkout(props) {
                 cart,
                 total: totalprice(cart) + shippingCost
             })
-            setToast({
-                text:"Đặt hàng thành công",
-                type:"success"
-            })
-            Cookies.set('cart', '')
-            cartMutate([])
-            history.push('/search')
+            if(!res.error){
+                
+                setToast({
+                    text:"Đặt hàng thành công",
+                    type:"success"
+                })
+                Cookies.set('cart', '')
+                cartMutate([])
+                history.push('/search')
+            }
+            
            
         }
         catch(e){
