@@ -81,7 +81,7 @@ export default function Nav({
             }}
             href={{
                 pathname:"/search",
-                search: '?' + new URLSearchParams({ category: item.label })
+                search: '?' + new URLSearchParams({ category: item.id })
             }}  underline={false} key={id}>{item.label}</StyleLink>)}
             <div style={{ flex: 1 }} />
             <Badge.Anchor>
