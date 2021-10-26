@@ -13,7 +13,7 @@ export default function Footer() {
 
     return <div>
         {/* <Divider/> */}
-        <Grid.Container gap={2} marginBottom={6} >
+        <Grid.Container gap={2}  >
             <Grid xs={24} md={2}  >
                 <div>
                     <Image alt=''  height={60} objectFit='contain' width={120}  src={LogoImg}></Image>

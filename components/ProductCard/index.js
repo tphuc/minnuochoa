@@ -15,7 +15,7 @@ export default function ProductCard({
 
   const { palette } = useTheme()
   return <Link href={`/product/${data.id}`} passHref width='100%' style={{display:"flex", width:width, margin:10, justifyContent:"center", alignItems:"center"}} >
-    <div style={{ border: "none", maxWidth:width  }} width="100%" >
+    <div style={{ border: "none", cursor:"pointer", maxWidth:width  }} width="100%" >
       <div style={{width:width, height:height, position:"relative", display:"flex", justifyContent:"center", alignItems:"center"}}>
         <Image objectFit='cover' alt='-' src={data?.images[0].url} layout='fill'/>
       </div> 
