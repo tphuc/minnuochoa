@@ -46,7 +46,7 @@ export default function ProductSidebar({
         <Text h3>Dung tích</Text>
 
         {
-            data?.variants?.map((item, idx) => <Button onClick={() => setActiveVariantIndex(idx)} type={activeVariantIndex == idx ? 'secondary-light' : 'default'} mr={1} auto>{ parseLabelPrice(item?.label).label}</Button>)
+            data?.variants?.map((item, idx) => <Button key={idx} onClick={() => setActiveVariantIndex(idx)} type={activeVariantIndex == idx ? 'secondary-light' : 'default'} mr={1} auto>{ parseLabelPrice(item?.label).label}</Button>)
         }
 
         <Spacer h={0.5} />
