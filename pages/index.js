@@ -19,9 +19,10 @@ export default function Home() {
   return (
     <div>
       <Head>
+        <title>Min Perfume</title>
+        <meta property="og:description" content="#minnuochoa - Chuyên nước hoa chính hãng giá tốt nhất thị trường"/>
+        <meta property="og:image" content="https://res.cloudinary.com/minnuochoa-com/image/upload/v1634287131/logo_l1o0ln.png"/>
         {/* <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap" rel="stylesheet" /> */}
-
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
       </Head>
       <Nav />
       <Spacer h={6} />
