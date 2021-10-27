@@ -9,6 +9,7 @@ import CheckoutItem from '../../components/CheckoutItem';
 import Cookies from 'js-cookie';
 import { OrderCrud } from '../../frameworks/supabase/order';
 import useCart from '../../frameworks/supabase/cart';
+import { useRouter } from 'next/router';
 
 
 
@@ -18,6 +19,7 @@ import useCart from '../../frameworks/supabase/cart';
 
 export default function Checkout(props) {
     const { palette } = useTheme()
+    const router = useRouter()
 
     const { data: cart, mutate: cartMutate } = useCart();
     const shippingCost = 30000;
@@ -73,13 +75,12 @@ export default function Checkout(props) {
                 })
                 Cookies.set('cart', '')
                 cartMutate([])
-                history.push('/search')
+                router.push('/search')
             }
             
            
         }
         catch(e){
-            console.log(e)
             setToast({
                 text:"Đặt bị lỗi xin thử lại",
                 type:"error"

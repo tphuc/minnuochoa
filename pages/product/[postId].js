@@ -72,7 +72,13 @@ export default function Product({
     data
 }) {
 
-    return <Page render='effect' width='100vw' >
+    return <>
+     <Head>
+            <title>{data?.label}</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            <meta property="og:image" content={data?.images[0]?.url}></meta>
+        </Head>
+    <Page render='effect' width='100vw' >
         {/* <NextSeo
             title={data?.label}
             openGraph={{
@@ -88,11 +94,7 @@ export default function Product({
                 site_name: 'Min Perfume',
             }}
         /> */}
-        <Head>
-            <title>{data?.label}</title>
-            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            <meta property="og:image" content={data?.images[0]?.url}></meta>
-        </Head>
+       
         <Nav layout='relative' showCategories={false} />
         <Page.Content>
             <Link passHref href={'/search'}><Button auto type='abort' icon={<ChevronLeft />}>Tất cả sản phẩm</Button></Link>
@@ -110,5 +112,6 @@ export default function Product({
         <Footer />
 
     </Page>
+    </>
 }
 

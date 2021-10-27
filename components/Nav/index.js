@@ -1,4 +1,4 @@
-import { Button, Input, Text, useTheme, Drawer, Divider, Spacer, Description, Badge } from '@geist-ui/react';
+import { Button, Input, Text, useTheme, Drawer, Divider, Spacer, Description, Badge, useMediaQuery } from '@geist-ui/react';
 import React from 'react';
 import Image from 'next/image'
 import Logo from '../../assets/logo.jpg'
@@ -14,7 +14,7 @@ export default function Nav({ layout = 'fixed', search = false, onSearch = () =>
     const theme = useTheme();
     const { data: cart } = useCart();
     const [openCart, setOpenCart] = React.useState(false);
-
+    const isMobile = useMediaQuery('mobile')
 
     const totalprice = React.useCallback(() => {
         if (!cart) {
@@ -73,7 +73,7 @@ export default function Nav({ layout = 'fixed', search = false, onSearch = () =>
 
             </Drawer.Content>
         </Drawer>
-        <div style={{ position: "relative", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", height: 80, width: '100vw', padding:"0px 50px 0px 50px" }}>
+        <div style={{ position: "relative", display: "flex", flexDirection: "row", boxSizing:'border-box', justifyContent: "center", alignItems: "center", height: 80, width: '100vw', paddingLeft: isMobile ?10 : 50, paddingRight: isMobile ? 10 : 50 }}>
             <div style={{ flex: 1, display: "flex", flexDirection: "row" }}>
                 {logoLeft && <Link passHref href={'/'}><Image alt='=' layout='intrinsic' height={80} width={100} objectFit='contain' src={Logo} /></Link>}
             </div>
@@ -95,7 +95,7 @@ export default function Nav({ layout = 'fixed', search = false, onSearch = () =>
 
             </div>
         </div>
-        {showCategories && <div style={{ height: 46, position: "relative", width: "100vw", display: "flex", flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
+        {showCategories && !isMobile && <div style={{ height: 46, position: "relative", width: "100vw", display: "flex", flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
             {
                 categories?.map((item, id) => <Link key={id} passHref href='/search'>
                     <a style={{ cursor: 'pointer' }} >{item.label}</a>
