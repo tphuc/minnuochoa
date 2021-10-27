@@ -13,10 +13,10 @@ export default function Footer() {
 
     return <div>
         {/* <Divider/> */}
-        <Grid.Container gap={2}  >
+        <Grid.Container   >
             <Grid xs={24} md={2}  >
                 <div>
-                    <Image alt=''  height={60} objectFit='contain' width={120}  src={LogoImg}></Image>
+                    <Image alt=''  height={50} width={100} objectFit='contain'  src={LogoImg}></Image>
                 </div>
             </Grid>
             <Grid xs={24} ml={1} md={8} direction='column' >
@@ -44,5 +44,6 @@ export default function Footer() {
             </Grid>
 
         </Grid.Container>
+        <Spacer h={4}/>
     </div>
 }

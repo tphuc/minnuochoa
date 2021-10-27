@@ -72,6 +72,20 @@ export default function useProducts(filter) {
 }
 
 export const ProductsCRUD = {
+    getAll: async () => {
+        let _res = await supabase.from('products')
+        .select(`
+            *,
+            brand: brands(
+                *
+            ),
+            categories(
+                *
+            )
+        `)
+
+        return _res.data
+    },
     create: async (_data) => {
         // delete and rewrite categories
         const { categories, ...data} = _data
@@ -88,8 +102,9 @@ export const ProductsCRUD = {
     createWithId: async (id, data) => {
  
     },
-    read: async(id) => {
-      
+    getOne: async (id) => {
+        let res = await supabase.from(ENDPOINT).select('*').match({id})
+        return res.data
     },
     update: async (id, _data) => {
         // delete and rewrite categories

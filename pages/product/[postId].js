@@ -11,32 +11,74 @@ import ProductSidebar from '../../components/ProductSidebar'
 import useProductItem from '../../frameworks/supabase/product-item';
 import Head from 'next/head'
 import { NextSeo } from 'next-seo';
+import { ProductsCRUD } from '../../frameworks/supabase/products';
+
+
+
+// export async function getStaticPaths() {
+//     // Call an external API endpoint to get posts
+//     const res = await ProductsCRUD.getAll()
+//     const posts = res
+
+//     // Get the paths we want to pre-render based on posts
+//     const paths = posts.map((product) => ({
+//         params: { postId: product.id.toString() },
+//     }))
+
+//     // We'll pre-render only these paths at build time.
+//     // { fallback: false } means other routes should 404.
+//     return { paths, fallback: false }
+// }
+
+
+// export async function getStaticProps(context) {
+//     const { postId } = context.params
+//     const res = await ProductsCRUD.getOne()
+//     const data = res
+
+//     if (!data) {
+//       return {
+//         notFound: true,
+//       }
+//     }
+
+//     return {
+//       props: { data }, // will be passed to the page component as props
+//     }
+//   }
+
+
+export async function getServerSideProps(context) {
+    const { postId } = context.params
+    console.log('context', context)
+    const res = await ProductsCRUD.getOne(postId)
+    const data = res[0]
+
+    if (!data) {
+        return {
+            notFound: true,
+        }
+    }
+
+    return {
+        props: {
+            data
+        }, // will be passed to the page component as props
+    }
+}
+
 
 export default function Product({
-
+    data
 }) {
-    const { postId } = useRouter().query
-    // const { palette } = useTheme()
-    // const query = useQuery()
-
-    // const history = useHistory();
-    // let {id} = useParams()
-
-
-
-    const { data: product } = useProductItem(postId);
-
-
-    // const isMobile = useMediaQuery('mobile');
-
 
     return <Page render='effect' width='100vw' >
-        <NextSeo
-            title={product?.label}
+        {/* <NextSeo
+            title={data?.label}
             openGraph={{
                 images: [
                     {
-                        url: product?.images[0]?.url,
+                        url: data?.images[0]?.url,
                         width: 800,
                         height: 600,
                         alt: 'Og Image Alt',
@@ -45,22 +87,22 @@ export default function Product({
                 ],
                 site_name: 'Min Perfume',
             }}
-        />
-        {/* <Head>
-            <title>{product?.label}</title>
+        /> */}
+        <Head>
+            <title>{data?.label}</title>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            <meta property="og:image" content={product?.images[0]?.url}></meta>
-        </Head> */}
+            <meta property="og:image" content={data?.images[0]?.url}></meta>
+        </Head>
         <Nav layout='relative' showCategories={false} />
         <Page.Content>
-            <Link href={'/search'}><Button auto type='abort' icon={<ChevronLeft />}>Tất cả sản phẩm</Button></Link>
+            <Link passHref href={'/search'}><Button auto type='abort' icon={<ChevronLeft />}>Tất cả sản phẩm</Button></Link>
             {/* <Button scale={1.5} onClick={() => history.push('/search')}  type='abort' icon={<ChevronLeft/>}>Tất cả sản phẩm</Button> */}
             <Grid.Container gap={2} >
                 <Grid xs={24} direction='column' md={14} >
-                    <ProductSlider images={product?.images || []} />
+                    <ProductSlider images={data?.images || []} />
                 </Grid>
                 <Grid xs={24} md={10}>
-                    <ProductSidebar data={product} />
+                    <ProductSidebar data={data} />
                 </Grid>
 
             </Grid.Container>
