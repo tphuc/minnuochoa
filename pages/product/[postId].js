@@ -15,57 +15,57 @@ import { ProductsCRUD } from '../../frameworks/supabase/products';
 
 
 
-// export async function getStaticPaths() {
-//     // Call an external API endpoint to get posts
-//     const res = await ProductsCRUD.getAll()
-//     const posts = res
+export async function getStaticPaths() {
+    // Call an external API endpoint to get posts
+    const res = await ProductsCRUD.getAll()
+    const posts = res
 
-//     // Get the paths we want to pre-render based on posts
-//     const paths = posts.map((product) => ({
-//         params: { postId: product.id.toString() },
-//     }))
+    // Get the paths we want to pre-render based on posts
+    const paths = posts.map((product) => ({
+        params: { postId: product.id.toString() },
+    }))
 
-//     // We'll pre-render only these paths at build time.
-//     // { fallback: false } means other routes should 404.
-//     return { paths, fallback: false }
-// }
-
-
-// export async function getStaticProps(context) {
-//     const { postId } = context.params
-//     const res = await ProductsCRUD.getOne()
-//     const data = res
-
-//     if (!data) {
-//       return {
-//         notFound: true,
-//       }
-//     }
-
-//     return {
-//       props: { data }, // will be passed to the page component as props
-//     }
-//   }
+    // We'll pre-render only these paths at build time.
+    // { fallback: false } means other routes should 404.
+    return { paths, fallback: false }
+}
 
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
     const { postId } = context.params
-    console.log('context', context)
     const res = await ProductsCRUD.getOne(postId)
     const data = res[0]
 
     if (!data) {
-        return {
-            notFound: true,
-        }
+      return {
+        notFound: true,
+      }
     }
 
     return {
-        props: {
-            data
-        }, // will be passed to the page component as props
+      props: { data }, // will be passed to the page component as props
     }
-}
+  }
+
+
+// export async function getServerSideProps(context) {
+//     const { postId } = context.params
+//     console.log('context', context)
+//     const res = await ProductsCRUD.getOne(postId)
+//     const data = res[0]
+
+//     if (!data) {
+//         return {
+//             notFound: true,
+//         }
+//     }
+
+//     return {
+//         props: {
+//             data
+//         }, // will be passed to the page component as props
+//     }
+// }
 
 
 export default function Product({
