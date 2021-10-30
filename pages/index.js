@@ -27,7 +27,7 @@ export default function Home() {
       <Nav />
       <Spacer h={6} />
       <div style={{ display: "block", boxSizing: 'border-box', margin: isMobile ? 0 : "20px", position: "relative", width: "calc(100vw-20px)", height: '60vh' }}>
-        <Image layout='fill' alt='=' objectFit='cover' objectPosition='50% 34%' src={'https://res.cloudinary.com/minnuochoa-com/image/upload/v1633691914/244973743_2349931545143229_7997632194508024423_n_dmff7e.jpg'} />
+        <Image layout='fill' alt='=' objectFit='cover' objectPosition='50% 34%' src={'https://res.cloudinary.com/minnuochoa-com/image/upload/v1635609506/bet_price_authentic_3_w7sbki.png'} />
 
         <div style={{ position: "absolute", width: "100%", height: "100%", padding: "5%", backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0))" }}>
           <Text style={{ color: "#ffffff" }} h2> Min Perfume </Text>
