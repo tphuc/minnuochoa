@@ -26,7 +26,7 @@ export default function Home() {
       </Head>
       <Nav />
       <Spacer h={6} />
-      <div style={{ display: "block", boxSizing: 'border-box', margin: isMobile ? 0 : "20px", position: "relative", width: "calc(100vw-20px)", height: '60vh' }}>
+      <div style={{ display: "block", boxSizing: 'border-box', margin: isMobile ? 0 : "20px", position: "relative", width: "calc(100vw-20px)", height: '70vh' }}>
         <Image layout='fill' alt='=' objectFit='cover' objectPosition='50% 34%' src={'https://res.cloudinary.com/minnuochoa-com/image/upload/v1635609506/bet_price_authentic_3_w7sbki.png'} />
 
         <div style={{ position: "absolute", width: "100%", height: "100%", padding: "5%", backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0))" }}>
@@ -50,7 +50,7 @@ export default function Home() {
 
       </div>
 
-      <div style={{ display: "flex", flexDirection: 'row', justifyContent: "center", padding: '20px 0px 20px 0px', flexWrap: "wrap", margin: "20px", position: "relative", width: "calc(100vw-20px)", background: theme.palette.accents_1 }}>
+      <div style={{ display: "flex", flexDirection: 'row', justifyContent: "center", padding: '20px 0px 20px 0px', flexWrap: "wrap", margin: isMobile ? 0 : "20px", position: "relative", width: "calc(100vw-20px)", background: theme.palette.accents_1 }}>
         {
           categories?.map((item, idx) => <CategoryItem data={item} key={idx} />)
         }
@@ -59,7 +59,7 @@ export default function Home() {
         <Text style={{textAlign:"center"}} h3>Sản phẩm nổi bật</Text>
       <div style={{ justifyContent: "space-evenly", display: "block", margin: isMobile ? '0px' : "20px", padding: isMobile ? 5 : "5%", paddingTop: '5%', paddingBottom:'5%',  position: "relative", width: "calc(100vw-20px)", display: "flex", flexDirection: "row", flexWrap: "wrap", background: `linear-gradient( 45deg, ${theme.palette.accents_1}, ${theme.palette.accents_2})` }}>
         {
-          _.shuffle(hightlightproducts || [])?.slice(0, 8)?.map((item, id) => <ProductCard showPrice={false} width={isMobile ? '40vw' : 320} height={isMobile ? '40vw' : 400} data={item} key={id} />)
+          _.shuffle(hightlightproducts || [])?.slice(0, 8)?.map((item, id) => <ProductCard  width={isMobile ? '40vw' : 320} height={isMobile ? '40vw' : 400} data={item} key={id} />)
         }
         <div style={{ display: 'flex', width:"100%", flexDirection: "column", alignItems:"center", justifyContent: 'center' }}>
           <Spacer h={2}/>
