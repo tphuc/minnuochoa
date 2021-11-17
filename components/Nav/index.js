@@ -78,12 +78,12 @@ export default function Nav({ layout = 'fixed', search = false, onSearch = () =>
                 {logoLeft && <Link passHref href={'/'}><Image alt='=' layout='intrinsic' height={80} width={100} objectFit='contain' src={Logo} /></Link>}
             </div>
             {!logoLeft && <Link passHref href={'/'}><Image alt='=' layout='intrinsic' height={80} width={100} objectFit='contain' src={Logo} /></Link>}
-            {search && <Input
+            {search && !isMobile && <Input
                 onKeyDown={(e) => {
                     if (e.key == 'Enter') {
                         onSearch(e.target.value)
                     }
-                }} iconRight={<Search />} onBlur={(e) => onSearch(e.target?.value)} iconClickable placeholder='tìm kiếm sản phẩm' width='280px' />}
+                }} iconRight={<Search />} onBlur={(e) => onSearch(e.target?.value)} iconClickable placeholder='tìm kiếm sản phẩm' width='240px' />}
             <div style={{ flex: 1, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "flex-end",  }}>
 
                 <Badge.Anchor >
@@ -102,5 +102,12 @@ export default function Nav({ layout = 'fixed', search = false, onSearch = () =>
                 </Link>)
             }
         </div>}
+        {search && isMobile && <Input
+            padding={'20px'}
+                onKeyDown={(e) => {
+                    if (e.key == 'Enter') {
+                        onSearch(e.target.value)
+                    }
+                }} iconRight={<Search />} onBlur={(e) => onSearch(e.target?.value)} iconClickable placeholder='tìm kiếm sản phẩm' width='100%'  />}
     </div>
 }

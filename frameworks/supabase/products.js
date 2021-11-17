@@ -22,18 +22,20 @@ const fetcher = async (ENDPOINT, filter) => {
 
 
     for(let k in filter){
+        console.log(k, filter[k])
         if(filter[k]){
             switch(k){
                 case 'search':
                     _res = _res.filter('label', 'ilike', `%${filter[k]}%`)
+                    break
                 case 'brand':
-                    _res = _res.filter('brand', 'eq', parseInt(filter.brand))
+                    _res = _res.filter('brand', 'eq', parseInt(filter[k]))
                     break
                 case 'category':
-                    _res.filter('product_category.category_id', 'eq', parseInt(filter.category))
+                    _res.filter('product_category.category_id', 'eq', parseInt(filter[k]))
                     break
                 case 'sort':
-                    if(filter.sort == 'timestamp'){
+                    if(filter[k] == 'timestamp'){
                         _res = _res.order('created_at', { ascending: false})
                     }
                     else{

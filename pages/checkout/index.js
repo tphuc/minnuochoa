@@ -16,7 +16,6 @@ import { useRouter } from 'next/router';
 
 
 
-
 export default function Checkout(props) {
     const { palette } = useTheme()
     const router = useRouter()
@@ -67,12 +66,16 @@ export default function Checkout(props) {
                 cart,
                 total: totalprice(cart) + shippingCost
             })
+
+            
             if(!res.error){
                 
                 setToast({
                     text:"Đặt hàng thành công",
                     type:"success"
                 })
+
+
                 Cookies.set('cart', '')
                 cartMutate([])
                 router.push('/search')

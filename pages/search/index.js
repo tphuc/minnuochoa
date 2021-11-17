@@ -13,6 +13,7 @@ import Nav from '../../components/Nav';
 
 
 
+
 const getSortFunc = (a, b, sort) => {
     if (sort == 'asc') {
         return a.price > b.price
@@ -38,7 +39,8 @@ export default function Search(props) {
     const { data: sorts } = useSorts();
     const { category, brand, sort } = useRouter().query
     const [search, setSearch] = React.useState('')
-
+    const router = useRouter()
+console.log(categories)
     const isMobile = useMediaQuery('mobile')
 
     React.useEffect(() => {
@@ -50,7 +52,10 @@ export default function Search(props) {
 
 
     return <Page padding={0} render='effect-seo' width='100%' >
-        <Nav showCategories={false} logoLeft search layout='relative' onSearch={(val) => setSearch(val)}/>
+        <Nav showCategories={false} logoLeft search layout='relative' onSearch={(val) => {
+            setSearch(val)
+            console.log(val)
+        }}/>
         <style jsx>
             {`
                 a{
@@ -64,19 +69,29 @@ export default function Search(props) {
             {isMobile && <div style={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 <Text b h4>Tìm nước hoa bạn muốn</Text>
                 <Select width='100%' placeholder="Danh mục" onChange={(val) => {
-
+                    
+                    router.push({
+                        pathname: '/search',
+                        query: { category: val || '', brand: brand || '', sort: sort || '' }
+                    })
                 }} >
-                    {categories?.map((item, id) => <Select.Option value={item.label} key={id}>{item.label}</Select.Option>)}
+                    {categories?.map((item, id) => <Select.Option value={item?.id?.toString()} key={id}>{item.label}</Select.Option>)}
                 </Select>
                 <Spacer h={0.2} />
                 <Select width='100%' placeholder="Hãng" onChange={(val) => {
-
+                    router.push({
+                        pathname: '/search',
+                        query: { category: category || '', brand: val || '', sort: sort || '' }
+                    })
                 }} >
-                    {brands?.map((item, id) => <Select.Option value={item.label} key={id}>{item.label}</Select.Option>)}
+                    {brands?.map((item, id) => <Select.Option value={item?.id?.toString()} key={id}>{item.label}</Select.Option>)}
                 </Select>
                 <Spacer h={0.2} />
                 <Select width='100%' placeholder="Sắp xếp" onChange={(val) => {
-
+                    router.push({
+                        pathname: '/search',
+                        query: { category: category || '', brand: brand || '', sort: val }
+                    })
                 }} >
                     {sorts?.map((item, id) => <Select.Option value={item.value} key={id}>{item.label}</Select.Option>)}
                 </Select>
@@ -107,7 +122,7 @@ export default function Search(props) {
                     <Link
                         href={{
                             pathname: '/search',
-                            query: { category: category || '', brand: '', sort: sort || '' }
+                            query: { category: category || '', brand: brand || '', sort: sort || '' }
                         }}
                     >
                         <a>Tất cả</a>
