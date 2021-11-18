@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 import { OrderCrud } from '../../frameworks/supabase/order';
 import useCart from '../../frameworks/supabase/cart';
 import { useRouter } from 'next/router';
-
+import emailjs from 'emailjs-com'
 
 
 
@@ -31,7 +31,7 @@ export default function Checkout(props) {
 
     const [toasts, setToast] = useToasts()
 
-
+    
 
 
     const confirm = async () => {
@@ -58,13 +58,14 @@ export default function Checkout(props) {
             return
         }
         try{ 
+            let total = totalprice(cart) + shippingCost;
             let res = await OrderCrud.create({
                 name,
                 phone,
                 address,
                 paymentMethod,
                 cart,
-                total: totalprice(cart) + shippingCost
+                total
             })
 
             
@@ -75,6 +76,21 @@ export default function Checkout(props) {
                     type:"success"
                 })
 
+                emailjs.send('minnuochoa_email', 'template_rm0lzm3', {
+                    name: name,
+                    message: `
+                        ${cart.map(item => `${item.label} x ${item.amount} ${item?.variant?.label} \n` )}
+
+                    `,
+                    price: total,
+                    address,
+                }, 'user_lACZXmLocffHx1noYgLwX')
+                .then((result) => {
+
+                    console.log(86,result.text);
+                }, (error) => {
+                    console.log(88,error.text);
+                });
 
                 Cookies.set('cart', '')
                 cartMutate([])
@@ -84,6 +100,7 @@ export default function Checkout(props) {
            
         }
         catch(e){
+            console.log(99, e)
             setToast({
                 text:"Đặt bị lỗi xin thử lại",
                 type:"error"
