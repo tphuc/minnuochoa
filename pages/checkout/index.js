@@ -77,10 +77,9 @@ export default function Checkout(props) {
                 })
 
                 emailjs.send('minnuochoa_email', 'template_rm0lzm3', {
-                    name: name,
+                    name: `${name} ${phone}`,
                     message: `
                         ${cart.map(item => `${item.label} x ${item.amount} ${item?.variant?.label} \n` )}
-
                     `,
                     price: total,
                     address,
