@@ -40,7 +40,7 @@ export default function Search(props) {
     const { category, brand, sort } = useRouter().query
     const [search, setSearch] = React.useState('')
     const router = useRouter()
-console.log(categories)
+
     const isMobile = useMediaQuery('mobile')
 
     React.useEffect(() => {

@@ -15,7 +15,7 @@ const fetcher = async (ENDPOINT, filter) => {
         brand: brands(
             *
         ),
-        categories(
+        categories!inner(*)(
             *
         )
     `)
@@ -32,7 +32,7 @@ const fetcher = async (ENDPOINT, filter) => {
                     _res = _res.filter('brand', 'eq', parseInt(filter[k]))
                     break
                 case 'category':
-                    _res.filter('product_category.category_id', 'eq', parseInt(filter[k]))
+                    _res.filter('categories.id', 'eq', parseInt(filter[k]))
                     break
                 case 'sort':
                     if(filter[k] == 'timestamp'){
@@ -49,9 +49,10 @@ const fetcher = async (ENDPOINT, filter) => {
 
   
     _res.order('arrange', {ascending:false})
+    
 
     let res = await _res
-    console.log(res)
+
 
 
 
