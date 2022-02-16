@@ -37,15 +37,14 @@ export default function Search(props) {
     const { data: brands } = useBrands();
     const { data: products, isLoading: isProductsLoading } = useProducts(filter);
     const { data: sorts } = useSorts();
-    const { category, brand, sort } = useRouter().query
-    const [search, setSearch] = React.useState('')
+    const { category, brand, sort, search } = useRouter().query
+
     const router = useRouter()
 
     const isMobile = useMediaQuery('mobile')
 
     React.useEffect(() => {
         let filter = { brand, category, sort, search }
-
         setFilter(filter)
        
     }, [sort, brand, category, search])
@@ -53,8 +52,11 @@ export default function Search(props) {
 
     return <Page padding={0} render='effect-seo' width='100%' >
         <Nav showCategories={false} logoLeft search layout='relative' onSearch={(val) => {
-            setSearch(val)
-            console.log(val)
+            router.push({
+                pathname: '/search',
+                query: { category: '', brand: '', sort: '', search: val }
+            })
+            
         }}/>
         <style jsx>
             {`
@@ -68,7 +70,7 @@ export default function Search(props) {
         <Page.Content margin={0} style={{ minHeight: "80vh" }}>
             {isMobile && <div style={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 <Text b h4>Tìm nước hoa bạn muốn</Text>
-                <Select width='100%' placeholder="Danh mục" onChange={(val) => {
+                <Select value={category} width='100%' placeholder="Danh mục"  onChange={(val) => {
                     
                     router.push({
                         pathname: '/search',
@@ -76,18 +78,20 @@ export default function Search(props) {
                     })
                 }} >
                     {categories?.map((item, id) => <Select.Option value={item?.id?.toString()} key={id}>{item.label}</Select.Option>)}
+                    <Select.Option value={''} >{'tất cả'}</Select.Option>
                 </Select>
                 <Spacer h={0.2} />
-                <Select width='100%' placeholder="Hãng" onChange={(val) => {
+                <Select value={brand} width='100%' placeholder="Hãng" onChange={(val) => {
                     router.push({
                         pathname: '/search',
                         query: { category: category || '', brand: val || '', sort: sort || '' }
                     })
                 }} >
                     {brands?.map((item, id) => <Select.Option value={item?.id?.toString()} key={id}>{item.label}</Select.Option>)}
+                    <Select.Option value={''} >{'tất cả'}</Select.Option>
                 </Select>
                 <Spacer h={0.2} />
-                <Select width='100%' placeholder="Sắp xếp" onChange={(val) => {
+                <Select value={sort} width='100%' placeholder="Sắp xếp" onChange={(val) => {
                     router.push({
                         pathname: '/search',
                         query: { category: category || '', brand: brand || '', sort: val }
@@ -122,7 +126,7 @@ export default function Search(props) {
                     <Link
                         href={{
                             pathname: '/search',
-                            query: { category: category || '', brand: brand || '', sort: sort || '' }
+                            query: { category: category || '', brand: '', sort: sort || '' }
                         }}
                     >
                         <a>Tất cả</a>

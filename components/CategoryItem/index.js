@@ -8,7 +8,7 @@ export default function BrandItem({
     ...props
 }) {
     const theme = useTheme()
-    return <Link passHref href={'/search'}>
+    return <Link passHref href={`/search?category=${data.id}`}>
 
         <div>
         <style jsx global>{`
