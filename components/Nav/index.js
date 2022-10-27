@@ -97,7 +97,7 @@ export default function Nav({ layout = 'fixed', search = false, onSearch = () =>
         </div>
         {showCategories && !isMobile && <div style={{ height: 46, position: "relative", width: "100vw", display: "flex", flexDirection: 'row', justifyContent: "center", alignItems: "center" }}>
             {
-                categories?.map((item, id) => <Link key={id} passHref href='/search'>
+                categories?.map((item, id) => <Link key={id} passHref href={`/search?category=${item.id}`}>
                     <a style={{ cursor: 'pointer' }} >{item.label}</a>
                 </Link>)
             }

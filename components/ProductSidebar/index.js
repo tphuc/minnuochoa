@@ -42,10 +42,10 @@ export default function ProductSidebar({
     }
 
     return <div style={{ position: "relative", width: "100%" }}>
-        {data?.isNew || true && <div style={{ display: "inline", zIndex: 1, top: 0, left: 0, padding: '2px 5px', backgroundColor: "yellow" }}>
+        {data?.isNew && <div style={{ display: "inline", zIndex: 1, top: 0, left: 0, padding: '2px 5px', backgroundColor: "yellow" }}>
             new
         </div>}
-        {data?.isHot || true && <div style={{ display: "inline", zIndex: 1, top: 0, right: 0, color: "white", padding: '2px 5px', backgroundColor: "crimson" }}>
+        {data?.isHot && <div style={{ display: "inline", zIndex: 1, top: 0, right: 0, color: "white", padding: '2px 5px', backgroundColor: "crimson" }}>
             hot
         </div>}
         <Text h2 mt={0}>{data?.label}</Text>
