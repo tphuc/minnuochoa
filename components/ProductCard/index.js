@@ -17,10 +17,10 @@ export default function ProductCard({
   const { palette } = useTheme()
   return <Link href={`/product/${data.id}`} passHref={false} width='100%' style={{ display: "flex", width: width, margin: 10, justifyContent: "center", alignItems: "center" }} >
     <div style={{ border: "none", position: "relative", cursor: "pointer", maxWidth: width }} width="100%" >
-      {data?.isNew || true && <div style={{ position: "absolute", zIndex: 1, top: 0, left: 0, padding: '2px 5px', color:"white", backgroundColor: "crimson" }}>
+      {data?.isNew  && <div style={{ position: "absolute", zIndex: 1, top: 0, left: 0, padding: '2px 5px', color:"white", backgroundColor: "crimson" }}>
         New
       </div>}
-      {data?.isHot || true && <div style={{ position: "absolute", zIndex: 1, top: 0, right: 0, color: "white", padding: '2px 5px', backgroundColor: palette.accents_6 }}>
+      {data?.isHot  && <div style={{ position: "absolute", zIndex: 1, top: 0, right: 0, color: "white", padding: '2px 5px', backgroundColor: palette.accents_6 }}>
         Hot
       </div>}
       <div style={{ width: width, height: height, position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
