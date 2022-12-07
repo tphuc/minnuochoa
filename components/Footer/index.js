@@ -25,7 +25,7 @@ export default function Footer() {
             </Grid>
             <Grid xs={24} ml={1} md={8} direction='column'>
                 <Text my={0}>Hotline: 0777.039.286 </Text>
-                <Text my={0}>CN1: 84 Trần Kế Xương, P.7, Q.Phú Nhuận, TP.HCM </Text>
+                <Text my={0}>CN1: 23 Nơ Trang Long, P.7, Bình Thạnh, TP.HCM </Text>
                 <Text my={0}>CN2: 256 Ngô Quyền, P.Tân An, TX.Lagi, Bình Thuận </Text>
                 <Text my={0}>CN3: 98 Thái Hà, Đống Đa, Hà Nội </Text>
             </Grid>

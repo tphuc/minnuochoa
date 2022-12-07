@@ -57,7 +57,8 @@ export default function ProductSidebar({
         }
 
         <Spacer h={0.5} />
-        <Text h3 type='success' >{data?.variants?.[activeVariantIndex]?.label ? formatNumber(parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).price) : ''}</Text>
+        <Text h4 type='success' style={{textDecoration:"line-through", fontWeight:400}} >{parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).discountPrice ? formatNumber(parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).discountPrice) : ''}</Text>
+        <Text h3 type='error' >{data?.variants?.[activeVariantIndex]?.label ? formatNumber(parseLabelPrice(data?.variants?.[activeVariantIndex]?.label).price) : ''}</Text>
         <Divider />
         <Description title={<Text marginBottom={0} h5>Xuất xứ</Text>} content={<Text >{data?.origin}</Text>} />
         <Description title={<Text marginBottom={0} h5>Giới tính</Text>} content={<Text >{data?.gender}</Text>} />

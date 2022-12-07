@@ -10,6 +10,7 @@ import Footer from '../components/Footer'
 import { Facebook, Instagram } from '@geist-ui/react-icons'
 import Link from 'next/link'
 import _ from 'lodash';
+import { IconBrandTiktok } from '@tabler/icons'
 export default function Home() {
   const { data: categories } = useCategories();
   const { data: hightlightproducts } = useHightlightProducts();
@@ -39,8 +40,9 @@ export default function Home() {
           <br />
           <Spacer h={1}/>
           <div style={{cursor:'pointer'}}>
-          <Link  passHref href='https://instagram.com/minnuochoa'><Instagram size={26} color='#fff'/></Link>
-          <Link passHref href='https://facebook.com/minnuochoaa'><Facebook size={26} color='#fff'/></Link>
+            <Link  passHref href='https://instagram.com/minnuochoa'><Instagram size={26} color='#fff'/></Link>
+            <Link passHref href='https://facebook.com/minnuochoaa'><Facebook size={26} color='#fff'/></Link>
+            <Link passHref href='https://tiktok.com/@minnuochoa'><IconBrandTiktok size={26} color='#fff'/></Link>
           </div>
           
         </div>

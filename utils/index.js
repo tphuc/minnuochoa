@@ -8,8 +8,8 @@ function useQuery() {
 
 const parseLabelPrice = (string) => {
     if(!string) return {}
-    const [label, price] = string.split('-')
-    return { label, price: parseFloat(price)}
+    const [label, price, discountPrice] = string.split('-')
+    return { label, price: parseFloat(price), discountPrice: parseFloat(discountPrice)}
 }
 
 
