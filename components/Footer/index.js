@@ -40,6 +40,9 @@ export default function Footer() {
                 <a  href='https://facebook.com/minnuochoaa'>
                     <Facebook color={theme.palette.accents_6} size={24}/>
                 </a>
+                <a  href='https://tiktok.com/@minnuochoa'>
+                    <IconBrandTiktok size={24} color={theme.palette.accents_6}/>
+                </a>
                 </div>
             </Grid>
 
